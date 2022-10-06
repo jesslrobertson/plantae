@@ -1,38 +1,100 @@
-.App {
-  text-align: center;
+:root {
+  --xxl-text: clamp(1.7rem, 1.4333333333333333rem + 1.3333333333333335vw, 2.5rem);
+  --xxl-text-alt: 1.7rem;
+  --xl-text: clamp(1.5rem, 1.3333333333333333rem + 0.8333333333333334vw, 2rem);
+  --xl-text-alt: 1.5rem;
+  --l-text: clamp(1.3rem, 1.1333333333333333rem + 0.8333333333333334vw, 1.8rem);
+  --l-text-alt: 1.3rem;
+  --m-text: clamp(1.1rem, 1.0000000000000002rem + 0.49999999999999967vw, 1.4rem);
+  --m-text-alt: 1.1rem;
+  --s-text: clamp(1rem, 0.9333333333333333rem + 0.33333333333333326vw, 1.2rem);
+  --s-text-alt: 1rem;
+  --xs-text: clamp(0.85rem, 0.7999999999999999rem + 0.25000000000000006vw, 1rem);
+  --xs-text-alt: 0.85rem;
+  --xxs-text: clamp(0.75rem, 0.7rem + 0.25000000000000006vw, 0.9rem);
+  --xxs-text-alt: 0.75rem;
+  --display-font: 'Yeon Sung', cursive;
+  --content-font: 'Poppins', sans-serif;
+  --s-radius: 5px;
+  --m-radius: 10px;
+  --l-radius: 15px;
+  --white: #fafafa;
+  --sage: #B8D9B0;
+  --dark-green: #0E2603;
+  --black: #030D02;
+  --bright-green: #628C07;
+  --brigher-green: #97BF06;
+  box-sizing: border-box;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+h1 {
+  font-size: var(--xxl-text-alt);
+  font-size: var(--xxl-text);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+h2 {
+  font-size: var(--xl-text-alt);
+  font-size: var(--xl-text);
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+h3 {
+  font-size: var(--l-text-alt);
+  font-size: var(--l-text);
+}
+
+h4 {
+    font-size: var(--m-text-alt);
+    font-size: var(--m-text);
+}
+
+h5 {
+    font-size: var(--s-text-alt);
+    font-size: var(--s-text);
+}
+
+button {
+  font-family: var(--content-font);
+  padding: .5rem;
+  border: none;
+  border-radius: var(--s-radius);
+  margin: .5rem;
+}
+
+.link-element {
+  text-decoration: none;
+}
+
+/* post styles */
+.compact-post{
+  background-color: var(--sage);
+  color: var(--black);
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 1rem;
+  border-radius: var(--l-radius);
+  height: 25rem;
+  width: 15rem;
+  margin: 1rem;
 }
 
-.App-link {
-  color: #61dafb;
+.post-img {
+  max-width: 90%;
+  max-height: 60%;
+  margin: .2rem;
+  border-radius: var(--l-radius);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.post-title {
+  margin: .2rem;
 }
+
+.feedback-box, .feedback-comments {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+

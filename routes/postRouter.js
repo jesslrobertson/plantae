@@ -1,18 +1,27 @@
 const express = require("express");
 const postRouter = express.Router();
-const Post = require("../models/post.js");
+const Post = require("../models/post");
 const mongoose = require("mongoose");
 const User = require("../models/user")
 
+// function compareNums(a, b) {
+//   const totalA = a.upvotes.length - a.downvotes.length;
+//   const totalB = b.upvotes.length - b.downvotes.length;
+//   if (totalA > totalB) {
+//     return -1;
+//   } else if (totalA === totalB) {
+//     return 0;
+//   } else {
+//     return 1;
+//   }
+// }
 
 
 // Get All posts
+
 postRouter.get('/', (req, res, next) => {
   Post.find().populate({
-    populate: {
-      path: "comments",
-      model: "Comment"
-    },
+    path: "comments",
       populate: {
         path: "author",
         select: "username"
@@ -22,6 +31,7 @@ postRouter.get('/', (req, res, next) => {
       res.status(500)
       return next(err)
     }
+    console.log(posts)
     return res.status(200).send(posts)
   })
 })
@@ -48,21 +58,7 @@ postRouter.get("/:user", (req, res, next) => {
       res.status(500);
       return next(err);
     }
-  }).populate({
-    populate: {
-      path: "comments",
-      model: "Comment"
-    },
-      populate: {
-        path: "author",
-        select: "username"
-      }
-  }).exec((err, posts) => {
-    if (err){
-      res.status(500)
-      return next(err)
-    }
-    return res.status(200).send(posts)
+    return res.status(200).send(posts);
   });
 });
 
@@ -96,11 +92,10 @@ postRouter.put("/:postId", (req, res, next) => {
   );
 });
 
-// Like post
 postRouter.put("/like/:postId", (req, res, next) => {
   Post.findByIdAndUpdate(
     { _id: req.params.postId, user: req.auth._id },
-    { $addToSet: { likes: req.auth._id }},
+    { $addToSet: { likes: req.auth._id },},
     { new: true },
     (err, updatedPost) => {
       if (err) {
@@ -113,7 +108,7 @@ postRouter.put("/like/:postId", (req, res, next) => {
   );
 });
 
-// Remove like
+
 postRouter.put("/removeLike/:postId", (req, res, next) => {
   Post.findByIdAndUpdate(
     { _id: req.params.postId },
@@ -129,6 +124,5 @@ postRouter.put("/removeLike/:postId", (req, res, next) => {
     }
   );
 });
-
 
 module.exports = postRouter;
