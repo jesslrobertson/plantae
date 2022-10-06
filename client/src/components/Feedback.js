@@ -4,15 +4,19 @@ import { ContentContext } from "../context/ContentProvider";
 import { Link } from "react-router-dom";
 
 export default function Feedback(props) {
-  const { likePost, removeLike, state, singlePost, setSinglePost } =
+  const { likePost, removeLike, state, singlePost, setSinglePost, getOnePost } =
     useContext(ContentContext);
   const { postId, index, likeStatus, comments, likes } = props;
 
   let commentTotal = comments?.length
 
+  // function handleSinglePost(postId) {
+  //   let currentPost = state.posts.find((post) => post._id === postId);
+  //   setSinglePost(currentPost);
+  // }
+
   function handleSinglePost(postId) {
-    let currentPost = state.posts.find((post) => post._id === postId);
-    setSinglePost(currentPost);
+    getOnePost(postId)
   }
 
   const location = useLocation();
@@ -30,11 +34,11 @@ export default function Feedback(props) {
         {singlePost?.likes?.length} like
       </button>
       <h5>{comments?.length} Comments</h5>
-      {location.pathname != "/single-post" && (
-        <Link to="/single-post">
+      {/* {location.pathname != "/single-post" && (
+        <Link to={`/single-post/${singlePost._id}`} className='link-element'>
           <button onClick={() => handleSinglePost(postId)}>Add Comment</button>
         </Link>
-      )}
+      )} */}
     </div>
   );
 
@@ -50,7 +54,7 @@ export default function Feedback(props) {
       >
         {state.posts[index]?.likes?.length} like
       </button>
-      <Link to="/single-post" className="link-element">
+      <Link to={`/single-post/${postId}`} className="link-element">
         <div
           className="feedback-comments"
           onClick={() => handleSinglePost(postId)}

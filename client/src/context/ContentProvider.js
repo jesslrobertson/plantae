@@ -1,5 +1,5 @@
 //look into UseReducer to manage the many different kinds of State
-import React, { useReducer, useContext, useState } from "react";
+import React, { useReducer, useEffect, useState } from "react";
 import axios from "axios";
 
 export const ContentContext = React.createContext();
@@ -12,7 +12,6 @@ contentAxios.interceptors.request.use((config) => {
 });
 
 export default function ContentProvider(props) {
-
   const initState = {
     user: JSON.parse(localStorage.getItem("user")) || {},
     token: localStorage.getItem("token") || "",
@@ -26,16 +25,17 @@ export default function ContentProvider(props) {
         comments: [],
         likes: [],
         timestamp: "",
-        __v: 0
+        __v: 0,
       },
     ],
     message: "",
-    edit: false
+    edit: false,
+    dbSinglePost: {},
   };
 
   const [state, dispatch] = useReducer(contentReducer, initState);
 
-  const [singlePost, setSinglePost] = useState()
+  const [singlePost, setSinglePost] = useState();
 
   function contentReducer(state, action) {
     let newState;
@@ -45,7 +45,13 @@ export default function ContentProvider(props) {
         newState = {
           ...state,
           posts: action.value,
-          order: action.order
+          order: action.order,
+        };
+        break;
+      case "getOnePost":
+        newState = {
+          ...state,
+          dbSinglePost: action.value,
         };
         break;
       case "appendPosts":
@@ -69,12 +75,30 @@ export default function ContentProvider(props) {
           ...state,
           posts: prevPosts,
         };
-        break
+        break;
+      case "updateSinglePost":
+        newState = {
+          ...state,
+          dbsinglePost: state.dbSinglePost.comments = action.value,
+        };
+        break;
+      case "addComment":
+          newState = {
+            ...state,
+            dbSinglePost: action.value,
+          };
+        break;
+      case "removeComment":
+          newState = {
+            ...state,
+            dbSinglePost: state.dbSinglePost.comments.filter(comment => comment._id !== action.value),
+          };
+        break;
       case "edit":
         newState = {
           ...state,
-          edit: true
-        }
+          edit: true,
+        };
         break;
       default:
         throw new Error();
@@ -82,6 +106,10 @@ export default function ContentProvider(props) {
     return newState;
   }
 
+  useEffect(() => {
+    console.log('useEffect consoleLogs when reducer state changes')
+    console.log(state.dbSinglePost)
+  }, [state])
 
   function getUserPosts() {
     contentAxios
@@ -92,18 +120,29 @@ export default function ContentProvider(props) {
       .catch((err) => console.log(err.response.data.errMsg));
   }
 
-  function getAllPosts(){
+  function getAllPosts() {
     contentAxios
       .get("/api/post/")
       .then((res) => {
-        dispatch({ type: "getPosts", value: res.data});
+        dispatch({ type: "getPosts", value: res.data });
         //clean this up so we're not overwriting state
       })
       .catch((err) => console.log(err.response.data.errMsg));
-    }
+  }
+
+  function getOnePost(postId) {
+    contentAxios
+      .get(`/api/post/${postId}`)
+      .then((res) => {
+        dispatch({ type: "getOnePost", value: res.data[0] });
+        setSinglePost(res.data);
+        //clean this up so we're not overwriting state
+      })
+      .catch((err) => console.log(err.response.data.errMsg));
+  }
 
   function addPost(newPost) {
-    console.log(newPost)
+    console.log(newPost);
     contentAxios
       .post("/api/post", newPost)
       .then((res) => {
@@ -111,7 +150,6 @@ export default function ContentProvider(props) {
       })
       .catch((err) => console.log(err.response.data.errMsg));
   }
-
 
   function deletePost(postId) {
     contentAxios
@@ -154,44 +192,43 @@ export default function ContentProvider(props) {
       .catch((err) => console.log(err.reponse.data.errMsg));
   }
 
-  function addComment(newComment, postId){
-    console.log(newComment)
+  function addComment(newComment, postId) {
+    console.log(newComment);
     contentAxios
       .post(`/api/comment/${postId}`, newComment)
       .then((res) => {
-        let updatedComments = res.data.populatedPost[0].comments
-        console.log("res from comment update")
-        console.log(updatedComments)
-        setSinglePost(prev => {
-          return {
-            ...prev,
-            [prev.comments]: updatedComments
-          }
-        })
+        console.log("res from comment update");
+        console.log(res.data.populatedPost[0]);
+        dispatch({
+          type: "updateSinglePost",
+          value: res.data.populatedPost[0],
+        });
+        // setSinglePost(prev => {
+        //   return {
+        //     ...prev,
+        //     [prev.comments]: updatedComments
+        //   }
+        // })
       })
-      .catch((err) => console.log(err.response.data.errMsg))
+      .catch((err) => console.log(err.response.data.errMsg));
   }
 
-  function deleteComment(postId, commentId){
-    console.log('comment Id')
-    console.log(commentId)
+  function deleteComment(postId, commentId) {
+    console.log("comment Id");
+    console.log(commentId);
     contentAxios
-      .delete( `/api/comment/${postId}/${commentId}`)
-      .then((res)=>{
-        console.log(res.data.comments)
-        const updatedComments = res.data.comments
-        setSinglePost(prev => {
-          return {
-            ...prev,
-            comments: prev.comments.filter(comment => comment._id !== commentId)
-          }
-        })
+      .delete(`/api/comment/${postId}/${commentId}`)
+      .then((res) => {
+        console.log(res.data);
+        dispatch({
+          type: "removeComment",
+          value: commentId
+        });
       })
       .catch((err) => {
-        console.log(err.response.data.errMsg)
-      })
+        console.log(err.response.data.errMsg);
+      });
   }
-
 
   return (
     <ContentContext.Provider
@@ -201,6 +238,7 @@ export default function ContentProvider(props) {
         getUserPosts,
         // ...userContent,
         getAllPosts,
+        getOnePost,
         addPost,
         deletePost,
         likePost,
@@ -208,8 +246,8 @@ export default function ContentProvider(props) {
         addComment,
         singlePost,
         setSinglePost,
-        deleteComment, 
-        editPost
+        deleteComment,
+        editPost,
       }}
     >
       {props.children}
