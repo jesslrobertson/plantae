@@ -4,7 +4,7 @@ const mongoose = require('mongoose')
 const morgan = require('morgan')
 require('dotenv').config()
 const { expressjwt } = require('express-jwt')
-const cors = require(cors)
+const cors = require('cors')
 
 app.use(express.json())
 app.use(morgan('dev'))
@@ -22,7 +22,7 @@ app.use("/auth", require("./routes/authRouter.js"))
 app.use("/api", expressjwt({ secret: process.env.SECRET, algorithms: ['HS256']}))
 app.use("/api/post", require('./routes/postRouter.js'))
 app.use("/api/comment", require("./routes/commentRouter.js"))
-app.use("/api/userImage", require("./routes/userImageRouter"))
+app.use("/api/userImage", require("./routes/userImageRouter.js"))
 
 app.use((err, req, res, next) => {
   console.log(err)

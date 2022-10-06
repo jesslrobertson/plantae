@@ -8,12 +8,12 @@ const commentSchema = new Schema({
     required: true
   },
   author: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true
   },
   post: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "Post",
     required: true
   },
@@ -23,4 +23,3 @@ const commentSchema = new Schema({
   }
 })
 
-module.exports = mongoose.model("Comment", commentSchema)
