@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate, useParams } from 'react-router-dom'
 import Nav from './components/Nav'
 import Auth from './components/Auth'
 import Profile from './pages/Profile'
@@ -13,7 +13,9 @@ import {ContentContext} from './context/ContentProvider'
 
 export default function App(){
   const { token, logout } = useContext(UserContext)
-  const { getAllPosts, getUserPosts} = useContext(ContentContext)
+  const { getAllPosts, getUserPosts } = useContext(ContentContext)
+
+
 
 
 
@@ -51,7 +53,7 @@ export default function App(){
           }
           />
         <Route
-          path="/single-post"
+          path="/single-post/:singlePostId"
           element={
             <ProtectedRoute token={token} redirectTo={"/"} path={'/single-post'}>
               <SinglePost />

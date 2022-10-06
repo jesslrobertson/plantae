@@ -36,6 +36,24 @@ postRouter.get('/', (req, res, next) => {
   })
 })
 
+// Get one post
+postRouter.get('/:postId', (req, res, next) => {
+  Post.find({ _id: req.params.postId }).populate({
+    path: "comments",
+      populate: {
+        path: "author",
+        select: "username"
+      }
+  }).exec((err, post) => {
+    if (err){
+      res.status(500)
+      return next(err)
+    }
+    console.log(post)
+    return res.status(200).send(post)
+  })
+})
+
 
 // Add new post
 postRouter.post("/", (req, res, next) => {
