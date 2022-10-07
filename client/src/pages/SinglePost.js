@@ -8,7 +8,7 @@ import CommentBox from "../components/CommentBox";
 export default function SinglePost(props) {
   const { state, getOnePost } = useContext(ContentContext);
   const { singlePostId } = useParams();
-  let singlePost = state.dbSinglePost;
+  let currentPost = state.currentPost;
 
   useEffect(() => {
       getOnePost(singlePostId);
@@ -17,9 +17,9 @@ export default function SinglePost(props) {
 
   return (
     <div className="single-post">
-      <Post {...singlePost} key={singlePost._id} id={singlePost._id} />
-      <CommentForm postId={singlePost._id} />
-      <CommentBox {...singlePost} />
+      <Post {...currentPost} key={currentPost._id} id={currentPost._id} />
+      <CommentForm postId={currentPost._id} />
+      <CommentBox {...currentPost} />
     </div>
   )
 }

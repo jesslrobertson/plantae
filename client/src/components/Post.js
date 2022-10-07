@@ -2,20 +2,23 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { UserContext } from '../context/UserProvider'
 import { ContentContext } from '../context/ContentProvider'
-import CommentBox from './CommentBox'
 import Feedback from './Feedback'
 
 
 
 export default function Post(props){
-  const { title, imgUrl, description, user: postUser, _id: postId, likes, index, comments } = props
-  // const userId = localStorage.getItem("user")
+  const { title, imgUrl, description, tag, user: postUser, _id: postId, likes, index, comments } = props
   const { user: loggedInUser } = useContext(UserContext)
-  const { deletePost, state, dispatch, setSinglePost, singlePost } = useContext(ContentContext)
+  const { deletePost, state, dispatch } = useContext(ContentContext)
   const [likeStatus, setLikeStatus] = useState("neutral")
   const [postStyle, setPostStyle] = useState("")
+  const [userControls, setUserControls] = useState("false")
   const navigate = useNavigate() 
   const location = useLocation()
+
+  function handleUserControls(){
+    setUserControls(prev => !prev)
+  }
 
   //handle post display
   useEffect(() => {
@@ -42,32 +45,42 @@ export default function Post(props){
     navigate(`/edit-post`)
   }
 
+  function handleTags(string){
+    return string.split("-").join(" ")
+  }
+
 
 
   const userPost = (
     <> 
-      <h4 className='post-title'>{title}</h4>
-      <h5>{`By ${loggedInUser.username}`}</h5>
       {imgUrl && <img src={imgUrl} alt="user image" className="post-img" />}
-      <p>{description}</p>
-      <div className="edit-delete-box">
-        <button onClick={() => handleEdit(postId)}>Edit</button>
-        <button onClick={() => deletePost(postId)}>Delete</button>
+      <div className='post-content'>
+        {location == "./single-post" && <p>{description}</p>}
+        <div className="edit-delete-box">
+          <button onClick={() => handleEdit(postId)}>Edit</button>
+          <button onClick={() => deletePost(postId)}>Delete</button>
+        </div>
       </div>
     </>
   )
 
   const otherPost = (
     <>
-      <h4 className='post-title' >{title}</h4>
       {imgUrl && <img src={imgUrl} alt="user image" className="post-img"/>}
-      <p>{description}</p>
+      {location == "./single-post" && <p>{description}</p>}
     </>
   )
 
   
   return (
     <div className={postStyle} key={postId} >
+      <div className='post-upper'>
+        <div className='post-intro'>
+          <h5 className='post-title'>{title}</h5>
+          <h6 className='post-author'>{`By ${loggedInUser.username}`}</h6>
+        </div>
+        {tag && <span className={`post-tag ${tag}`}>{handleTags(tag)}</span>}
+      </div>
       { loggedInUser._id === postUser ?
       userPost
       : otherPost

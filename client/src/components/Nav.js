@@ -5,7 +5,7 @@ export default function Nav(props){
   const { logout } = props
   return (
     <div className="nav">
-      <h1>Plantae</h1>
+      <h1 className='logo-text'>Plantae</h1>
       <div className='link-box'>
         <Link className='link' to="/profile">Profile</Link>
         <Link className='link' to="/home">Home</Link>

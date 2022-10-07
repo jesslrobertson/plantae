@@ -30,7 +30,7 @@ export default function ContentProvider(props) {
     ],
     message: "",
     edit: false,
-    dbSinglePost: {},
+    currentPost: {},
   };
 
   const [state, dispatch] = useReducer(contentReducer, initState);
@@ -51,7 +51,7 @@ export default function ContentProvider(props) {
       case "getOnePost":
         newState = {
           ...state,
-          dbSinglePost: action.value,
+          currentPost: action.value,
         };
         break;
       case "appendPosts":
@@ -79,14 +79,14 @@ export default function ContentProvider(props) {
       case "setSinglePost":
         newState = {
           ...state,
-          dbsinglePost: (action.value),
+          currentPost: (action.value),
         };
         break;
       case "addComment":
         newState = {
           ...state,
-          dbSinglePost: {
-            ...state.dbSinglePost,
+          currentPost: {
+            ...state.currentPost,
             comments: action.value
           },
         };
@@ -94,8 +94,8 @@ export default function ContentProvider(props) {
       case "removeComment":
         newState = {
           ...state,
-          dbSinglePost: {
-            ...state.dbSinglePost,
+          currentPost: {
+            ...state.currentPost,
             comments: action.value
           },
         };
