@@ -55,7 +55,7 @@ h5 {
 
 button {
   font-family: var(--content-font);
-  padding: .5rem;
+  padding: .3rem;
   border: none;
   border-radius: var(--s-radius);
   margin: .5rem;
@@ -100,14 +100,19 @@ button.liked {
 
 .post-upper {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
   margin-left: 1rem;
   margin-top: .5rem;
-  width: 100%;
+  width: 90%;
   min-height: 5rem;
+}
 
+.post-intro {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
 }
 
 .post-img {
@@ -131,6 +136,10 @@ button.liked {
   justify-content: space-evenly;
 }
 
+.post-interaction {
+  display: flex;
+}
+
 /* tags */
 .post-tag {
   font-weight: 600;
@@ -139,6 +148,8 @@ button.liked {
   border-radius: 1rem;
   font-size: .85rem;
   margin-bottom: .5rem;
+  margin: 0;
+  text-align: center;
 }
 
 .post-tag.happy-plant {
@@ -155,6 +166,10 @@ button.liked {
 }
 
 .post-tag.seeking-advice {
-  background-color: var(--dark-green)
+  background-color: var(--dark-green);
+  max-width: 7rem;
 }
 
+.edit-delete-box {
+  display: flex;
+}
