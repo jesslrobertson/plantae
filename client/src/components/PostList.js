@@ -7,7 +7,7 @@ export default function PostList(props) {
   console.log(state.posts)
 
   return (
-    <div>
+    <div className='post-list'>
       {state?.posts?.map((post, index) => (
         <Post {...post} key={post._id} id={post._id} index={index} />
       ))}

@@ -17,7 +17,7 @@ export default function PostForm(props) {
 
   useEffect(() => {
     if (state.edit === true) {
-      const thisPost = state.dbSinglePost
+      const thisPost = state.currentPost
       setInputs({
         title: thisPost.title,
         description: thisPost.description,
@@ -40,7 +40,7 @@ export default function PostForm(props) {
     if (state.edit === false) {
       addPost(inputs);
     } else {
-      editPost( state.dbSinglePost._id, inputs);
+      editPost( state.currentPost._id, inputs);
       dispatch({ type: "edit" });
     }
     setInputs(initInputs);
@@ -73,11 +73,11 @@ export default function PostForm(props) {
           onChange={handleChange}
           placeholder="Image Url"
         />
-        <select id="tag" value={tag} onChange={handleChange} name="favColor">
-          <option value="Happy Plant">Happy Plant</option>
-          <option value="Seeking Advice">Seeking Advice</option>
-          <option value="New Growth">New Growth</option>
-          <option value="Identification">Identification</option>
+        <select id="tag" value={inputs.tag} onChange={handleChange} name="tag">
+          <option value="happy-plant">Happy Plant</option>
+          <option value="seeking-advice">Seeking Advice</option>
+          <option value="new-growth">New Growth</option>
+          <option value="identification">Identification</option>
         </select>
         <button>Submit</button>
       </form>

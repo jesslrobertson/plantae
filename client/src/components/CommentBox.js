@@ -4,15 +4,15 @@ import { ContentContext } from '../context/ContentProvider'
 
 export default function CommentBox(){
   const { state } = useContext(ContentContext)
-  const singlePost = state.dbSinglePost
+  const currentPost = state.currentPost
   useEffect(() => {
-    console.log(singlePost)
+    console.log(currentPost)
   }, [state])
 
   return (
     <div className="comment-container">
       <h3>Comments</h3>
-      {singlePost.comments && singlePost.comments?.map(comment => <Comment {...comment} key={comment._id} postId={singlePost.postId} />)}
+      {currentPost.comments && currentPost.comments?.map(comment => <Comment {...comment} key={comment._id} postId={currentPost.postId} />)}
     </div>
   )
 }

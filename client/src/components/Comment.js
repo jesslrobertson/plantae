@@ -4,10 +4,10 @@ import { ContentContext } from "../context/ContentProvider"
 
 export default function Comment(props){
   const { user }  = useContext( UserContext )
-  const { deleteComment, singlePost, state } = useContext( ContentContext)
+  const { deleteComment, state } = useContext( ContentContext)
   const { comment, author, _id: commentId } = props
 
-  const postId = state.dbSinglePost._id
+  const postId = state.currentPost._id
 
   const ownComment = (
     <>
