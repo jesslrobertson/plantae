@@ -17,6 +17,7 @@ export default function Post(props){
   const navigate = useNavigate() 
   const location = useLocation()
 
+  //handle post display
   useEffect(() => {
     if (location === './single-post'){
       setPostStyle("full-post")
@@ -24,13 +25,23 @@ export default function Post(props){
       setPostStyle("compact-post")
     }
   }, [])
+
+  //handle like status
+  useEffect(()=>{
+    if (likes?.includes(loggedInUser._id)){
+      setLikeStatus("liked")
+    } else {
+      setLikeStatus("neutral")
+    }
+  }, [likes])
   
   function handleEdit(postId){
     let currentPost = state.posts.find(post => post._id === postId)
-    setSinglePost(currentPost)
+    dispatch({ type: 'setSinglePost', value: currentPost})
     dispatch({ type: 'edit'})
-    navigate('/edit-post')
+    navigate(`/edit-post`)
   }
+
 
 
   const userPost = (
