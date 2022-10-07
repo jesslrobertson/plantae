@@ -6,7 +6,10 @@ import { Link } from "react-router-dom";
 export default function Feedback(props) {
   const { likePost, removeLike, state, singlePost, setSinglePost, getOnePost } =
     useContext(ContentContext);
-  const { postId, index, likeStatus, comments, likes } = props;
+  const { postId, index, likeStatus, setLikeStatus, comments, likes } = props;
+
+
+  console.log(likeStatus)
 
   let commentTotal = comments?.length
 
@@ -24,11 +27,11 @@ export default function Feedback(props) {
   const singlePostView = (
     <div className="feedback-box">
       <button
-        className={likeStatus == "liked" ? "liked" : "neutral"}
+        className={likeStatus === "liked" ? "liked" : "neutral"}
         onClick={
-          likeStatus == "liked"
-            ? () => removeLike(postId, likeStatus)
-            : () => likePost(postId, likeStatus)
+          likeStatus === "liked"
+            ? () => removeLike(postId)
+            : () => likePost(postId)
         }
       >
         {singlePost?.likes?.length} like

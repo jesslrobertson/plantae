@@ -76,23 +76,29 @@ export default function ContentProvider(props) {
           posts: prevPosts,
         };
         break;
-      case "updateSinglePost":
+      case "setSinglePost":
         newState = {
           ...state,
-          dbsinglePost: state.dbSinglePost.comments = action.value,
+          dbsinglePost: (action.value),
         };
         break;
       case "addComment":
-          newState = {
-            ...state,
-            dbSinglePost: action.value,
-          };
+        newState = {
+          ...state,
+          dbSinglePost: {
+            ...state.dbSinglePost,
+            comments: action.value
+          },
+        };
         break;
       case "removeComment":
-          newState = {
-            ...state,
-            dbSinglePost: state.dbSinglePost.comments.filter(comment => comment._id !== action.value),
-          };
+        newState = {
+          ...state,
+          dbSinglePost: {
+            ...state.dbSinglePost,
+            comments: action.value
+          },
+        };
         break;
       case "edit":
         newState = {
@@ -106,12 +112,8 @@ export default function ContentProvider(props) {
     return newState;
   }
 
-  useEffect(() => {
-    console.log('useEffect consoleLogs when reducer state changes')
-    console.log(state.dbSinglePost)
-  }, [state])
-
   function getUserPosts() {
+    console.log("get user posts called")
     contentAxios
       .get("/api/post/user")
       .then((res) => {
@@ -131,6 +133,7 @@ export default function ContentProvider(props) {
   }
 
   function getOnePost(postId) {
+    console.log("get one post called")
     contentAxios
       .get(`/api/post/${postId}`)
       .then((res) => {
@@ -174,7 +177,8 @@ export default function ContentProvider(props) {
       .catch((err) => console.log(err.response.data.errMsg));
   }
 
-  function likePost(postId, likeStatus) {
+  function likePost(postId) {
+    console.log('adding like')
     contentAxios
       .put(`/api/post/like/${postId}`)
       .then((res) => {
@@ -183,7 +187,8 @@ export default function ContentProvider(props) {
       .catch((err) => console.log(err.response.data.errMsg));
   }
 
-  function removeLike(postId, likeStatus) {
+  function removeLike(postId) {
+    console.log("removing like")
     contentAxios
       .put(`/api/post/removeLike/${postId}`)
       .then((res) => {
@@ -198,10 +203,10 @@ export default function ContentProvider(props) {
       .post(`/api/comment/${postId}`, newComment)
       .then((res) => {
         console.log("res from comment update");
-        console.log(res.data.populatedPost[0]);
+        console.log(res.data);
         dispatch({
-          type: "updateSinglePost",
-          value: res.data.populatedPost[0],
+          type: "addComment",
+          value: res.data.comments,
         });
         // setSinglePost(prev => {
         //   return {
@@ -222,7 +227,7 @@ export default function ContentProvider(props) {
         console.log(res.data);
         dispatch({
           type: "removeComment",
-          value: commentId
+          value: res.data.comments,
         });
       })
       .catch((err) => {

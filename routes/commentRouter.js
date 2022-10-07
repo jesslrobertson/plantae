@@ -11,27 +11,21 @@ commentRouter.post("/:postId", (req, res, next) => {
   Post.findByIdAndUpdate(
     { _id: req.params.postId, user: req.auth._id },
     { $addToSet: { comments:{ comment: newComment.comment, author: mongoose.Types.ObjectId(req.auth._id)}} },
-    { new: true },
-    (err, updatedPost) => {
-      if (err) {
-        res.status(500);
-        return next(err);
-      } // return res.status(201).send({ updatedPost });
-      console.log(updatedPost)
-    }
-  );
-  Post.find({_id: req.params.postId}).populate({
+    { new: true }
+    ).populate({
     path: "comments",
       populate: {
         path: "author",
         select: "username"
       }
   }).exec((err, populatedPost) => {
+    console.log('Post populated from add comment request')
+    console.log(populatedPost)
     if (err){
       res.status(500)
       return next(err)
     }
-    return res.status(201).send({populatedPost})
+    return res.status(201).send(populatedPost)
   })
 });
 
@@ -42,37 +36,25 @@ commentRouter.delete("/:postId/:commentId", (req, res, next) => {
   Post.findOneAndUpdate(
     { _id: req.params.postId },
     { $pull: {comments: { _id: req.params.commentId}}},
-    { new: true },
-    function(err, updatedPost){
-      if(err){
-        res.status(500)
-        return next(err)
+    { new: true }
+  ).populate({
+    path: "comments",
+      populate: {
+        path: "author",
+        select: "username"
       }
-      res.status(201).send(updatedPost)
+  }).exec((err, populatedPost) => {
+    if (err){
+      res.status(500)
+      return next(err)
     }
-  )
+    console.log('populated post for res - after comment deletion')
+    console.log(populatedPost)
+    return res.status(201).send(populatedPost)
+  })
 });
 
 
-// commentRouter.delete("/:postId/:commentId", (req, res, next) => {
-//   console.log(req.params)
-//   Post.comments.id(req.params.commentId).remove(
-//     // { _id: req.params.postId },
-//     // { $pull: { [comments.comment]: mongoose.Types.ObjectId(req.params.commentId)} } ,
-//     // { new: true },
-//     (err, updatedPost) => {
-//       console.log('updated post, after findByIdAndUpdate is called')
-//       console.log(updatedPost)
-//       if (err) {
-//         res.status(500);
-//         return next(err);
-//       }
-//       return res
-//         .status(200)
-//         .send(updatedPost);
-//     }
-//   );
-// });
 // Update comment
 commentRouter.put("/:commentId", (req, res, next) => {
   Comment.findOneAndUpdate(
@@ -88,5 +70,7 @@ commentRouter.put("/:commentId", (req, res, next) => {
     }
   );
 });
+
+
 
 module.exports = commentRouter;

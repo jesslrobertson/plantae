@@ -38,6 +38,9 @@ const postSchema = new Schema({
       ref: "User",
     },
   ],
+  tag: {
+    type: String
+  },
   timestamp: {
     type: Date,
     default: Date.now,

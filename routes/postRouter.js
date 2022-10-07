@@ -36,6 +36,32 @@ postRouter.get('/', (req, res, next) => {
   })
 })
 
+// Add new post
+postRouter.post("/", (req, res, next) => {
+  console.log(req.body);
+  req.body.user = req.auth._id;
+  const newPost = new Post(req.body);
+  newPost.save((err, savedPost) => {
+    if (err) {
+      res.status(500);
+      return next(err);
+    }
+    return res.status(201).send(savedPost);
+  });
+});
+
+//Get posts by user id
+postRouter.get("/:user", (req, res, next) => {
+  console.log("Get user posts called XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX")
+  Post.find({ user: req.auth._id }, (err, posts) => {
+    if (err) {
+      res.status(500);
+      return next(err);
+    }
+    return res.status(200).send(posts);
+  });
+});
+
 // Get one post
 postRouter.get('/:postId', (req, res, next) => {
   Post.find({ _id: req.params.postId }).populate({
@@ -54,31 +80,6 @@ postRouter.get('/:postId', (req, res, next) => {
   })
 })
 
-
-// Add new post
-postRouter.post("/", (req, res, next) => {
-  console.log(req.body);
-  req.body.user = req.auth._id;
-  const newPost = new Post(req.body);
-  newPost.save((err, savedPost) => {
-    if (err) {
-      res.status(500);
-      return next(err);
-    }
-    return res.status(201).send(savedPost);
-  });
-});
-
-//Get posts by user id
-postRouter.get("/:user", (req, res, next) => {
-  Post.find({ user: req.auth._id }, (err, posts) => {
-    if (err) {
-      res.status(500);
-      return next(err);
-    }
-    return res.status(200).send(posts);
-  });
-});
 
 // Delete post
 postRouter.delete("/:postId", (req, res, next) => {
@@ -99,15 +100,19 @@ postRouter.put("/:postId", (req, res, next) => {
   Post.findOneAndUpdate(
     { _id: req.params.postId, user: req.auth._id },
     req.body,
-    { new: true },
-    (err, updatedPost) => {
-      if (err) {
-        res.status(500);
-        return next(err);
+    { new: true }).populate({
+      path: "comments",
+      populate: {
+        path: "author",
+        select: "username"
       }
-      return res.status(201).send(updatedPost);
+  }).exec((err, updatedPost) => {
+    if(err){
+      res.status(500)
+      return next(err)
     }
-  );
+    return res.status(200).send(updatedPost);
+  }) 
 });
 
 postRouter.put("/like/:postId", (req, res, next) => {
