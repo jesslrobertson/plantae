@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { UserContext } from '../context/UserProvider'
 import { ContentContext } from '../context/ContentProvider'
+import { ReactComponent as MenuDots } from '../MenuDots.svg'
 import Feedback from './Feedback'
 
 
@@ -16,9 +17,23 @@ export default function Post(props){
   const navigate = useNavigate() 
   const location = useLocation()
 
-  function handleUserControls(){
+  function toggleControls(){
     setUserControls(prev => !prev)
   }
+
+  const showUserControls = (
+    <div className="edit-delete-box">
+      <button onClick={() => handleEdit(postId)}>Edit</button>
+      <button onClick={() => deletePost(postId)}>Delete</button>
+      <span onClick={toggleControls}>X</span>
+    </div>
+  )
+
+  const hideUserControls = (
+    <div className="edit-delete-box">
+      <MenuDots onClick={toggleControls} />
+    </div>
+  )
 
   //handle post display
   useEffect(() => {
@@ -49,44 +64,25 @@ export default function Post(props){
     return string.split("-").join(" ")
   }
 
-
-
-  const userPost = (
-    <> 
-      {imgUrl && <img src={imgUrl} alt="user image" className="post-img" />}
-      <div className='post-content'>
-        {location == "./single-post" && <p>{description}</p>}
-        <div className="edit-delete-box">
-          <button onClick={() => handleEdit(postId)}>Edit</button>
-          <button onClick={() => deletePost(postId)}>Delete</button>
-        </div>
-      </div>
-    </>
-  )
-
-  const otherPost = (
-    <>
-      {imgUrl && <img src={imgUrl} alt="user image" className="post-img"/>}
-      {location == "./single-post" && <p>{description}</p>}
-    </>
-  )
-
-  
   return (
     <div className={postStyle} key={postId} >
       <div className='post-upper'>
         <div className='post-intro'>
           <h5 className='post-title'>{title}</h5>
           <h6 className='post-author'>{`By ${loggedInUser.username}`}</h6>
+        {tag && <h6 className={`post-tag ${tag}`}>{handleTags(tag)}</h6>}
+          
         </div>
-        {tag && <span className={`post-tag ${tag}`}>{handleTags(tag)}</span>}
+      {loggedInUser._id === postUser &&  
+        <>
+        {userControls ? showUserControls : hideUserControls}
+        </>}
       </div>
-      { loggedInUser._id === postUser ?
-      userPost
-      : otherPost
-      }
-      <Feedback postId={postId} key={postId} likes={likes} index={index} likeStatus={likeStatus} setLikeStatus={setLikeStatus} comments={comments}/>
+      {imgUrl && <img src={imgUrl} alt="user image" className="post-img" />}
+      <div className='post-content'>
+        {location == "./single-post" && <p>{description}</p>}
+      </div>
+        <Feedback postId={postId} key={postId} likes={likes} index={index} likeStatus={likeStatus} setLikeStatus={setLikeStatus} comments={comments}/>
     </div>
-
   )
 }
