@@ -13,12 +13,6 @@ import {ContentContext} from './context/ContentProvider'
 
 export default function App(){
   const { token, logout } = useContext(UserContext)
-  const { getAllPosts, getUserPosts } = useContext(ContentContext)
-
-
-
-
-
 
   return (
     <div className="app">
