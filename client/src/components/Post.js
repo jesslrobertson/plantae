@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { UserContext } from '../context/UserProvider'
 import { ContentContext } from '../context/ContentProvider'
-import { ReactComponent as MenuDots } from '../MenuDots.svg'
+import { ReactComponent as MenuDots } from '../assets/MenuDots.svg'
 import Feedback from './Feedback'
 
 
