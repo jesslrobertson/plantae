@@ -7,16 +7,13 @@ import {ReactComponent as SolidHeart } from '../assets/solid-heart.svg'
 import {ReactComponent as LineHeart } from '../assets/line-heart.svg'
 
 export default function Feedback(props) {
-  const { likePost, removeLike, state, singlePost, setSinglePost, getOnePost } =
+  const { likePost, removeLike, state, singlePost, getOnePost } =
     useContext(ContentContext);
-  const { postId, index, likeStatus, setLikeStatus, comments, likes } = props;
+  const { postId, likeStatus, comments, likes } = props;
+
+  
 
   let commentTotal = comments?.length;
-
-  // function handleSinglePost(postId) {
-  //   let currentPost = state.posts.find((post) => post._id === postId);
-  //   setSinglePost(currentPost);
-  // }
 
   function handleSinglePost(postId) {
     getOnePost(postId);
@@ -56,12 +53,7 @@ export default function Feedback(props) {
         ? likedHeart
       : neutralHeart}
       </div>
-      <h5 className='feedback-comments'>{comments?.length} Comments</h5>
-      {/* {location.pathname != "/single-post" && (
-        <Link to={`/single-post/${singlePost._id}`} className='link-element'>
-          <button onClick={() => handleSinglePost(postId)}>Add Comment</button>
-        </Link>
-      )} */}
+      <h5 className='feedback-comments'>{commentTotal} Comments</h5>
     </div>
   );
 
