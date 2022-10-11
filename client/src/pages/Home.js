@@ -14,8 +14,8 @@ export default function Home(){
 
   
   return (
-    <div>
-      <h2>All Posts</h2>
+    <div className='home-page'>
+      <h3>All Posts</h3>
       <PostList />
     </div>
   )

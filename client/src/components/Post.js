@@ -72,7 +72,7 @@ export default function Post(props) {
 
   return (
     <div className={`${postStyle} post`} key={postId}>
-      <div className="post-upper">
+      <div className={`post-upper ${postStyle}`}>
         <div className="post-intro">
           <h5 className="post-title">{title}</h5>
           <h6 className="post-author">{`By ${loggedInUser.username}`}</h6>
