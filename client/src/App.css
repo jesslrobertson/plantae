@@ -5,25 +5,33 @@
   --xl-text-alt: 1.5rem;
   --l-text: clamp(1.3rem, 1.1333333333333333rem + 0.8333333333333334vw, 1.8rem);
   --l-text-alt: 1.3rem;
-  --m-text: clamp(1.1rem, 1.0000000000000002rem + 0.49999999999999967vw, 1.4rem);
+  --m-text: clamp(
+    1.1rem,
+    1.0000000000000002rem + 0.49999999999999967vw,
+    1.4rem
+  );
   --m-text-alt: 1.1rem;
   --s-text: clamp(1rem, 0.9333333333333333rem + 0.33333333333333326vw, 1.2rem);
   --s-text-alt: 1rem;
-  --xs-text: clamp(0.85rem, 0.7999999999999999rem + 0.25000000000000006vw, 1rem);
+  --xs-text: clamp(
+    0.85rem,
+    0.7999999999999999rem + 0.25000000000000006vw,
+    1rem
+  );
   --xs-text-alt: 0.85rem;
   --xxs-text: clamp(0.75rem, 0.7rem + 0.25000000000000006vw, 0.9rem);
   --xxs-text-alt: 0.75rem;
-  --display-font: 'Forum', serif;
-  --content-font: 'Poppins', sans-serif;
+  --display-font: "Forum", serif;
+  --content-font: "Poppins", sans-serif;
   --s-radius: 5px;
   --m-radius: 10px;
   --l-radius: 15px;
   --white: #fafafa;
-  --sage: #B8D9B0;
-  --dark-green: #0E2603;
-  --black: #030D02;
-  --bright-green: #628C07;
-  --brigher-green: #97BF06;
+  --sage: #b8d9b0;
+  --dark-green: #0e2603;
+  --black: #030d02;
+  --bright-green: #628c07;
+  --brigher-green: #97bf06;
   --grey-green: #d8dfd5;
   box-sizing: border-box;
   margin: 0;
@@ -33,7 +41,6 @@
 .app {
   min-height: 100vh;
 }
-
 
 h1 {
   font-size: var(--xxl-text-alt);
@@ -51,41 +58,49 @@ h3 {
 }
 
 h4 {
-    font-size: var(--m-text-alt);
-    font-size: var(--m-text);
+  font-size: var(--m-text-alt);
+  font-size: var(--m-text);
 }
 
 h5 {
-    font-size: var(--s-text-alt);
-    font-size: var(--s-text);
+  font-size: var(--s-text-alt);
+  font-size: var(--s-text);
 }
 
 button {
   font-family: var(--content-font);
-  padding: .3rem;
+  padding: 0.3rem;
   border: none;
   border-radius: var(--s-radius);
-  margin: .5rem;
+  margin: 0.5rem;
 }
 
 input {
   border: none;
-  padding: .3rem;
+  padding: 0.3rem;
   border-radius: var(--s-radius);
-  margin: .2rem;
+  margin: 0.2rem;
 }
 button.liked {
   background-color: var(--brigher-green);
 }
 
+.heart-icon {
+  fill: var(--bright-green);
+}
+.heart-icon.liked {
+  fill: var(--bright-green);
+  stroke: var(--bright-green);
+}
 
 .link-element {
   text-decoration: none;
+  color: (var(--black))
 }
 
 /* Nav styles */
 .nav {
-  background-image: url('./assets/monstera-background.png');
+  background-image: url("./assets/monstera-background.png");
   min-width: 100vw;
   height: 7rem;
   display: flex;
@@ -106,7 +121,7 @@ button.liked {
 .nav-link {
   display: block;
   text-decoration: none;
-  font-family: 'Nunito Sans', sans-serif;
+  font-family: "Nunito Sans", sans-serif;
   font-weight: 700;
   color: white;
   padding: 10px;
@@ -123,7 +138,8 @@ button.liked {
   background-color: var(--dark-green);
 }
 
-.link-container:hover, .menu-button:hover {
+.link-container:hover,
+.menu-button:hover {
   background-color: var(--bright-green);
 }
 
@@ -167,27 +183,43 @@ button.liked {
 }
 
 @keyframes slide-out {
-  from { transform: translate3d(+100vw, 0, 0 ) }
-  to { transform: translate3d(0vw, 0, 0 )}
+  from {
+    transform: translate3d(+100vw, 0, 0);
+  }
+  to {
+    transform: translate3d(0vw, 0, 0);
+  }
 }
 
 @keyframes slide-away {
-  from { transform: translate3d(0vw, 0, 0 ) }
-  to { transform: translate3d(+100vw, 0 0 )}
+  from {
+    transform: translate3d(0vw, 0, 0);
+  }
+  to {
+    transform: translate3d(+100vw, 0 0);
+  }
 }
 
 @-webkit-keyframes slide-out {
-  0% { transform: translate3d(+100vw, 0, 0 ) }
-  100% { transform: translate3d(0vw, 0, 0 )}
+  0% {
+    transform: translate3d(+100vw, 0, 0);
+  }
+  100% {
+    transform: translate3d(0vw, 0, 0);
+  }
 }
 
 @-webkit-keyframes slide-away {
-  0% { transform: translate3d(0vw, 0, 0 ) }
-  100% { transform: translate3d(+100vw, 0, 0 )}
+  0% {
+    transform: translate3d(0vw, 0, 0);
+  }
+  100% {
+    transform: translate3d(+100vw, 0, 0);
+  }
 }
 /* landing page styles */
 .auth-page {
-  background-image: url('./assets/monstera-background.png');
+  background-image: url("./assets/monstera-background.png");
   height: 100vh;
   width: 100vw;
   display: flex;
@@ -196,18 +228,17 @@ button.liked {
   position: relative;
 }
 
-
 .auth-intro {
   color: var(--white);
   padding: 1rem;
   border-radius: var(--l-radius);
-  text-shadow: 1px 1px 7px rgba(0,0,0,0.49);
+  text-shadow: 1px 1px 7px rgba(0, 0, 0, 0.49);
 }
 
 .logo-text {
   font-family: var(--display-font);
   font-size: var(--xxl-text);
-  text-shadow: 1px 1px 7px rgba(0,0,0,0.49);
+  text-shadow: 1px 1px 7px rgba(0, 0, 0, 0.49);
   margin: 0;
   color: var(--white);
 }
@@ -255,7 +286,7 @@ button.liked {
 }
 
 /* post styles */
-.compact-post{
+.compact-post {
   background-color: var(--sage);
   color: var(--black);
   display: flex;
@@ -274,7 +305,7 @@ button.liked {
   justify-content: space-between;
   align-items: flex-start;
   margin-left: 1rem;
-  margin-top: .5rem;
+  margin-top: 0.5rem;
   width: 90%;
   min-height: 5rem;
 }
@@ -292,32 +323,75 @@ button.liked {
 }
 
 .post-title {
-  margin: .2rem;
+  margin: 0.2rem;
 }
 
 .post-author {
-  margin: .2rem;
+  margin: 0.2rem;
+}
+.feedback-box {
+  align-self: center;
+  justify-content: space-between;
+  width: 100%;
 }
 
-.feedback-box, .feedback-comments {
+.feedback-comments {
+  padding-right: 1rem;
+}
+.feedback-box,
+.feedback-comments {
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-evenly;
 }
 
 .post-interaction {
   display: flex;
 }
 
+
+.like-box {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  padding-left: 1rem;
+}
+
+.like-number {
+  margin: 0;
+}
+
+
+.heart {
+  height: 2rem;
+  width: 2rem;
+  margin: 5px;
+  padding: 0;
+  display: inline;
+}
+
+.heart-fill-neutral > * {
+  background-color: var(--sage);
+}
+
+.liked-heart {
+  fill: var(--bright-green);
+}
+
+.neutral-heart {
+  fill: var(--dark-green);
+}
+
+
 /* tags */
 .post-tag {
   font-weight: 600;
   color: var(--white);
-  padding: .3rem;
+  padding: 0.3rem;
   border-radius: 1rem;
-  font-size: .85rem;
-  margin-bottom: .5rem;
+  font-size: 0.85rem;
+  margin-bottom: 0.5rem;
   margin: 0;
   text-align: center;
 }
@@ -327,12 +401,12 @@ button.liked {
   color: var(--content-font);
 }
 .post-tag.new-growth {
-  background-color: var(--bright-green)
+  background-color: var(--bright-green);
 }
 
 .post-tag.identification {
   background-color: goldenrod;
-  color: var(--content-font)
+  color: var(--content-font);
 }
 
 .post-tag.seeking-advice {
