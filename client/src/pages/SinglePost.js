@@ -18,8 +18,10 @@ export default function SinglePost(props) {
   return (
     <div className="single-post">
       <Post {...currentPost} key={currentPost._id} id={currentPost._id} />
-      <CommentForm postId={currentPost._id} />
-      <CommentBox {...currentPost} />
+      <div className='comment-container'>
+        <CommentForm postId={currentPost._id} />
+        <CommentBox {...currentPost} />
+      </div>
     </div>
   )
 }

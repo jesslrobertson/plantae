@@ -23,7 +23,6 @@ export default function Feedback(props) {
 
   const likedHeart = (
     <SolidHeart
-          likeStatus={likeStatus}
           className='liked-heart heart'
           onClick={
             likeStatus === "liked"
@@ -35,7 +34,6 @@ export default function Feedback(props) {
 
   const neutralHeart = (
     <LineHeart
-          likeStatus={likeStatus}
           className='neutral-heart heart'
           onClick={
             likeStatus === "liked"
