@@ -1,5 +1,4 @@
-//look into UseReducer to manage the many different kinds of State
-import React, { useReducer, useEffect, useState } from "react";
+import React, { useReducer, useState } from "react";
 import axios from "axios";
 
 export const ContentContext = React.createContext();
@@ -79,7 +78,7 @@ export default function ContentProvider(props) {
       case "setSinglePost":
         newState = {
           ...state,
-          currentPost: (action.value),
+          currentPost: action.value,
         };
         break;
       case "addComment":
@@ -87,7 +86,7 @@ export default function ContentProvider(props) {
           ...state,
           currentPost: {
             ...state.currentPost,
-            comments: action.value
+            comments: action.value,
           },
         };
         break;
@@ -96,7 +95,7 @@ export default function ContentProvider(props) {
           ...state,
           currentPost: {
             ...state.currentPost,
-            comments: action.value
+            comments: action.value,
           },
         };
         break;
@@ -113,7 +112,7 @@ export default function ContentProvider(props) {
   }
 
   function getUserPosts() {
-    console.log("get user posts called")
+    console.log("get user posts called");
     contentAxios
       .get("/api/post/user")
       .then((res) => {
@@ -127,21 +126,18 @@ export default function ContentProvider(props) {
       .get("/api/post/")
       .then((res) => {
         dispatch({ type: "getPosts", value: res.data });
-        //clean this up so we're not overwriting state
       })
       .catch((err) => console.log(err.response.data.errMsg));
   }
 
   function getOnePost(postId) {
-    console.log("get one post called")
-    console.log(postId)
+    console.log("get one post called");
+    console.log(postId);
     contentAxios
       .get(`/api/post/singlePost/${postId}`)
       .then((res) => {
-        console.log(res.data[0])
+        console.log(res.data[0]);
         dispatch({ type: "getOnePost", value: res.data[0] });
-        // setSinglePost(res.data);
-        //clean this up so we're not overwriting state
       })
       .catch((err) => console.log(err.response.data.errMsg));
   }
@@ -167,9 +163,6 @@ export default function ContentProvider(props) {
       .catch((err) => console.log(err.response.data.errMsg));
   }
 
-  // //TODO getComments()
-  // //TODO postComment()
-
   function editPost(postId, editedPost) {
     contentAxios
       .put(`/api/post/${postId}`, editedPost)
@@ -180,7 +173,7 @@ export default function ContentProvider(props) {
   }
 
   function likePost(postId) {
-    console.log('adding like')
+    console.log("adding like");
     contentAxios
       .put(`/api/post/like/${postId}`)
       .then((res) => {
@@ -190,7 +183,7 @@ export default function ContentProvider(props) {
   }
 
   function removeLike(postId) {
-    console.log("removing like")
+    console.log("removing like");
     contentAxios
       .put(`/api/post/removeLike/${postId}`)
       .then((res) => {
@@ -210,12 +203,6 @@ export default function ContentProvider(props) {
           type: "addComment",
           value: res.data.comments,
         });
-        // setSinglePost(prev => {
-        //   return {
-        //     ...prev,
-        //     [prev.comments]: updatedComments
-        //   }
-        // })
       })
       .catch((err) => console.log(err.response.data.errMsg));
   }
@@ -243,7 +230,6 @@ export default function ContentProvider(props) {
         state,
         dispatch,
         getUserPosts,
-        // ...userContent,
         getAllPosts,
         getOnePost,
         addPost,

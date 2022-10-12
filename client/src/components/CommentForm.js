@@ -7,7 +7,7 @@ export default function CommentForm(props) {
   const { addComment, state } = useContext(ContentContext);
   const { postId } = props;
   const [commentValue, setCommentValue] = useState({
-    comment: ""
+    comment: "",
   });
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -25,17 +25,17 @@ export default function CommentForm(props) {
   };
 
   function handleChange(e) {
-    setCommentValue(prev => {
+    setCommentValue((prev) => {
       return {
-        [e.target.name]: e.target.value
-      }
+        [e.target.name]: e.target.value,
+      };
     });
-    console.log(commentValue.comment)
+    console.log(commentValue.comment);
   }
 
   function handleCancel(e) {
     setCommentValue({
-      [e.target.name]: ""
+      [e.target.name]: "",
     });
     setIsExpanded(false);
   }
@@ -44,7 +44,7 @@ export default function CommentForm(props) {
     e.preventDefault();
     addComment(commentValue, postId);
     setCommentValue({
-      comment: ""
+      comment: "",
     });
     setIsExpanded(false);
   }
@@ -80,17 +80,11 @@ export default function CommentForm(props) {
           name="comment"
           id="comment"
         />
-        <div 
-        className="actions"
-        >
-          <button 
-          type="button" className="cancel" 
-          onClick={handleCancel}>
+        <div className="actions">
+          <button type="button" className="cancel" onClick={handleCancel}>
             Cancel
           </button>
-          <button type="submit" 
-            disabled ={commentValue.comment?.length == 0}
-          >
+          <button type="submit" disabled={commentValue.comment?.length == 0}>
             Submit
           </button>
         </div>
