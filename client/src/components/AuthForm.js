@@ -26,7 +26,7 @@ export default function AuthForm(props) {
         onChange={handleChange}
         placeholder="Password"
       />
-      <div className='button-box'>
+      <div className="button-box">
         <button>{btnText}</button>
         <button onClick={() => setShowModal(false)}>Cancel</button>
       </div>

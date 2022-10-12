@@ -124,6 +124,12 @@ button.liked {
     0px 10px 80px rgba(0, 0, 0, 0.05);
 }
 
+.logged-in-user{
+  margin: 1rem;
+  border-top: var(--white) solid 2px;
+  border-bottom: var(--white) solid 2px;
+}
+
 .leaf-text-logo {
   display: flex;
   flex-direction: row;
@@ -320,6 +326,20 @@ button.liked {
   margin: 5rem 1rem 1rem 1rem;
 }
 
+.avatar-box {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.avatar-name {
+  padding-left: 10px;
+  margin: 1rem;
+}
+
+.avatar-name.light {
+  color: var(--white);
+}
+
 /* post styles */
 
 .post {
@@ -492,7 +512,7 @@ button.liked {
 }
 
 .post-tag.identification {
-  background-color: goldenrod;
+  background-color: #daa520;
   color: var(--content-font);
 }
 

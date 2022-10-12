@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { ContentContext } from "../context/ContentProvider";
 import Post from "../components/Post";
@@ -11,17 +11,16 @@ export default function SinglePost(props) {
   let currentPost = state.currentPost;
 
   useEffect(() => {
-      getOnePost(singlePostId);
-  },[])
-
+    getOnePost(singlePostId);
+  }, []);
 
   return (
     <div className="single-post">
       <Post {...currentPost} key={currentPost._id} id={currentPost._id} />
-      <div className='comment-container'>
+      <div className="comment-container">
         <CommentBox {...currentPost} />
         <CommentForm postId={currentPost._id} />
       </div>
     </div>
-  )
+  );
 }

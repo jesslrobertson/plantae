@@ -4,18 +4,6 @@ const Post = require("../models/post");
 const mongoose = require("mongoose");
 const User = require("../models/user");
 
-// function compareNums(a, b) {
-//   const totalA = a.upvotes.length - a.downvotes.length;
-//   const totalB = b.upvotes.length - b.downvotes.length;
-//   if (totalA > totalB) {
-//     return -1;
-//   } else if (totalA === totalB) {
-//     return 0;
-//   } else {
-//     return 1;
-//   }
-// }
-
 const populateQuery = [
   { path: "comments", populate: { path: "author", select: "username" } },
   { path: "user", select: "username" },
@@ -25,13 +13,6 @@ const populateQuery = [
 postRouter.get("/", (req, res, next) => {
   Post.find()
     .populate(populateQuery)
-    // ({
-    //   path: "comments",
-    //   populate: {
-    //     path: "author",
-    //     select: "username",
-    //   },
-    // })
     .exec((err, posts) => {
       if (err) {
         res.status(500);

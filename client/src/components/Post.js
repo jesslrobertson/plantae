@@ -4,6 +4,7 @@ import { UserContext } from "../context/UserProvider";
 import { ContentContext } from "../context/ContentProvider";
 import { ReactComponent as MenuDots } from "../assets/MenuDots.svg";
 import Feedback from "./Feedback";
+import UserAvatar from "./UserAvatar";
 
 export default function Post(props) {
   const {
@@ -50,9 +51,11 @@ export default function Post(props) {
       : setPostStyle("compact-post");
   }, [location]);
 
+  const avatarSize = postStyle === "full-post" ? 40 : 30;
+
   //handle like status
   useEffect(() => {
-  if (likes?.includes(loggedInUser._id)) {
+    if (likes?.includes(loggedInUser._id)) {
       setLikeStatus("liked");
     } else {
       setLikeStatus("neutral");
@@ -74,8 +77,8 @@ export default function Post(props) {
     <div className={`${postStyle} post`} key={postId}>
       <div className={`post-upper ${postStyle}`}>
         <div className="post-intro">
+          <UserAvatar name={postUser?.username} size={avatarSize} />
           <h5 className="post-title">{title}</h5>
-          <h6 className="post-author">{`By ${postUser?.username}`}</h6>
           {tag && <h6 className={`post-tag ${tag}`}>{handleTags(tag)}</h6>}
         </div>
         {loggedInUser._id === postUser && (
@@ -90,7 +93,9 @@ export default function Post(props) {
             className={`post-img ${postStyle}`}
           />
         )}
-        {location === `/single-post/${postId}` && <p className='post-description'>{description}</p>}
+        {location === `/single-post/${postId}` && (
+          <p className="post-description">{description}</p>
+        )}
       </div>
       <Feedback
         postId={postId}

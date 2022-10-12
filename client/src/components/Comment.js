@@ -1,39 +1,39 @@
-import React, { useContext } from 'react'
-import { UserContext } from '../context/UserProvider'
-import { ContentContext } from "../context/ContentProvider"
+import React, { useContext } from "react";
+import { UserContext } from "../context/UserProvider";
+import { ContentContext } from "../context/ContentProvider";
+import UserAvatar from "./UserAvatar";
 
-export default function Comment(props){
-  const { user }  = useContext( UserContext )
-  const { deleteComment, state } = useContext( ContentContext)
-  const { comment, author, _id: commentId } = props
+export default function Comment(props) {
+  const { user } = useContext(UserContext);
+  const { deleteComment, state } = useContext(ContentContext);
+  const { comment, author, _id: commentId } = props;
 
-  const postId = state.currentPost._id
+  const postId = state.currentPost._id;
 
   const ownComment = (
     <>
-      <h5 className="comment-author">{ author.username }</h5>
-      <p className='comment-content'>{ comment }</p>
+      <UserAvatar
+        name={author?.username}
+        size={20}
+        className="comment-author"
+      />
+      <p className="comment-content">{comment}</p>
       <div>
-        <button onClick={() => deleteComment(postId, commentId )}>Delete</button>
+        <button onClick={() => deleteComment(postId, commentId)}>Delete</button>
       </div>
     </>
-  )
+  );
 
   const otherComment = (
     <>
-      <h5 className="comment-author">{ author.username }</h5>
-      <p className='comment-content'>{ comment }</p>
+      <h5 className="comment-author">{author.username}</h5>
+      <p className="comment-content">{comment}</p>
     </>
-  )
+  );
 
-
-  
-  return(
-    <div className='single-comment-box'>
-      {user._id === author._id
-      ? ownComment
-      : otherComment
-      }
+  return (
+    <div className="single-comment-box">
+      {user._id === author._id ? ownComment : otherComment}
     </div>
-  )
+  );
 }

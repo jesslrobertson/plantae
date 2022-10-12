@@ -2,24 +2,27 @@ import React, { useContext } from "react";
 import { useLocation } from "react-router-dom";
 import { ContentContext } from "../context/ContentProvider";
 import { Link } from "react-router-dom";
-import {ReactComponent as SolidHeart } from '../assets/solid-heart.svg'
-import {ReactComponent as LineHeart } from '../assets/line-heart.svg'
+import { ReactComponent as SolidHeart } from "../assets/solid-heart.svg";
+import { ReactComponent as LineHeart } from "../assets/line-heart.svg";
 
 export default function Feedback(props) {
-  const { likePost, removeLike, state, 
-    // singlePost, 
-    getOnePost } =
-    useContext(ContentContext);
+  const {
+    likePost,
+    removeLike,
+    state,
+    // singlePost,
+    getOnePost,
+  } = useContext(ContentContext);
   const { postId: thisPostId, likeStatus, comments, likes } = props;
 
-  console.log('postId from feedback')
-  console.log(thisPostId)
+  console.log("postId from feedback");
+  console.log(thisPostId);
 
   let commentTotal = comments?.length;
 
   function handleSinglePost(idString) {
-    console.log('idString submitted by feedback to handleSinglePost')
-    console.log(idString)
+    console.log("idString submitted by feedback to handleSinglePost");
+    console.log(idString);
     getOnePost(idString);
   }
 
@@ -27,45 +30,41 @@ export default function Feedback(props) {
 
   const likedHeart = (
     <SolidHeart
-          className='liked-heart heart'
-          onClick={
-            likeStatus === "liked"
-              ? () => removeLike(thisPostId)
-              : () => likePost(thisPostId)
-          }
-        />
-  )
+      className="liked-heart heart"
+      onClick={
+        likeStatus === "liked"
+          ? () => removeLike(thisPostId)
+          : () => likePost(thisPostId)
+      }
+    />
+  );
 
   const neutralHeart = (
     <LineHeart
-          className='neutral-heart heart'
-          onClick={
-            likeStatus === "liked"
-              ? () => removeLike(thisPostId)
-              : () => likePost(thisPostId)
-          }
-        />
-  )
+      className="neutral-heart heart"
+      onClick={
+        likeStatus === "liked"
+          ? () => removeLike(thisPostId)
+          : () => likePost(thisPostId)
+      }
+    />
+  );
 
   const singlePostView = (
     <div className="feedback-box">
       <div className="like-box">
-        <h6 className='like-number'>{state.currentPost?.likes?.length}</h6>
-        {likeStatus === "liked"
-        ? likedHeart
-      : neutralHeart}
+        <h6 className="like-number">{state.currentPost?.likes?.length}</h6>
+        {likeStatus === "liked" ? likedHeart : neutralHeart}
       </div>
-      <h5 className='feedback-comments'>{commentTotal} Comments</h5>
+      <h5 className="feedback-comments">{commentTotal} Comments</h5>
     </div>
   );
 
   const listView = (
     <div className="feedback-box">
-      <div className='like-box'>
-        <h6 className='like-number'>{likes?.length}</h6>
-        {likeStatus === "liked"
-          ? likedHeart
-        : neutralHeart}
+      <div className="like-box">
+        <h6 className="like-number">{likes?.length}</h6>
+        {likeStatus === "liked" ? likedHeart : neutralHeart}
       </div>
       <Link to={`/single-post/${thisPostId}`} className="link-element">
         <div
@@ -78,5 +77,11 @@ export default function Feedback(props) {
     </div>
   );
 
-  return <>{location.pathname !== `/single-post/${thisPostId}` ? listView : singlePostView}</>;
+  return (
+    <>
+      {location.pathname !== `/single-post/${thisPostId}`
+        ? listView
+        : singlePostView}
+    </>
+  );
 }
