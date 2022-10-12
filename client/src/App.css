@@ -427,6 +427,7 @@ button.liked {
 
 .post-content.compact-post {
   display: flex;
+  flex-direction: column;
   margin: 0;
 }
 .post-upper.compact-post {
@@ -441,12 +442,14 @@ button.liked {
   margin: 0;
   padding: 0;
   cursor: pointer;
+  background-color: #fafafaac;
 }
 
 .post-img.full-post {
   max-height: 30rem;
   width: fit-content;
   object-fit: contain;
+  background-color: #fafafaac;
 }
 
 .post-title {
