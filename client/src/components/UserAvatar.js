@@ -12,7 +12,7 @@ export default function UserAvatar(props) {
         variant="beam"
         colors={["#0e2603", "#628c07", "#97bf06", "#daa520", "#b8d9b0"]}
       />
-      <h5 className={`avatar-name ${textColor}`}>{name}</h5>
+      <h6 className={`avatar-name ${textColor}`}>{name}</h6>
     </div>
   );
 }

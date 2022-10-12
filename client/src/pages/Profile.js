@@ -17,7 +17,7 @@ export default function Profile() {
 
   return (
     <div className="profile-page">
-      <UserAvatar name={username} size={40} />
+      <h3 className='profile-greeting'>Hi, {username}! Here are your posts:</h3>
       <PostList posts={state.posts} />
     </div>
   );

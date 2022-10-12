@@ -75,7 +75,7 @@ export default function Post(props) {
 
   return (
     <div className={`${postStyle} post`} key={postId}>
-      <div className={`post-upper ${postStyle}`}>
+      <div className={`post-upper ${postStyle}`} onClick={() => navigate(`/single-post/${postId}`)}>
         <div className="post-intro">
           <UserAvatar name={postUser?.username} size={avatarSize} />
           <h5 className="post-title">{title}</h5>
@@ -91,6 +91,7 @@ export default function Post(props) {
             src={imgUrl}
             alt="user image"
             className={`post-img ${postStyle}`}
+            onClick={() => navigate(`/single-post/${postId}`)}
           />
         )}
         {location === `/single-post/${postId}` && (

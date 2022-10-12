@@ -81,10 +81,10 @@ export default function CommentForm(props) {
           id="comment"
         />
         <div className="actions">
-          <button type="button" className="cancel" onClick={handleCancel}>
+          <button type="button" className="cancel-button" onClick={handleCancel}>
             Cancel
           </button>
-          <button type="submit" disabled={commentValue.comment?.length == 0}>
+          <button type="submit" className="submit-button" disabled={commentValue.comment?.length == 0}>
             Submit
           </button>
         </div>

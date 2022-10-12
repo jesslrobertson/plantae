@@ -18,9 +18,11 @@ export default function SlidingMenu() {
       <MenuLines onMouseDown={toggleMenu} className="menu-lines" />
       <div className={`${visibility} menu`} onClick={toggleMenu}>
         <div className="nav-links">
-          <div className="logged-in-user">
-            <UserAvatar name={user.username} size={40} textColor={"light"} />
-          </div>
+          <Link to="/profile" className="nav-link">
+            <div className="logged-in-user">
+              <UserAvatar name={user.username} size={40} textColor={"light"} />
+            </div>
+          </Link>
           <div className="link-container">
             <Link to="/home" className="nav-link">
               Home

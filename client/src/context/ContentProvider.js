@@ -1,4 +1,5 @@
 import React, { useReducer, useState } from "react";
+import { useLocation } from 'react-router-dom'
 import axios from "axios";
 
 export const ContentContext = React.createContext();
@@ -11,6 +12,7 @@ contentAxios.interceptors.request.use((config) => {
 });
 
 export default function ContentProvider(props) {
+  const location = useLocation().pathname
   const initState = {
     user: JSON.parse(localStorage.getItem("user")) || {},
     token: localStorage.getItem("token") || "",
@@ -177,7 +179,9 @@ export default function ContentProvider(props) {
     contentAxios
       .put(`/api/post/like/${postId}`)
       .then((res) => {
-        dispatch({ type: "updatePosts", value: res.data });
+        location === (`/single-post/${postId}`)
+        ? dispatch({ type: 'setSinglePost', value: res.data })
+        : dispatch({ type: "updatePosts", value: res.data })
       })
       .catch((err) => console.log(err.response.data.errMsg));
   }
@@ -187,7 +191,9 @@ export default function ContentProvider(props) {
     contentAxios
       .put(`/api/post/removeLike/${postId}`)
       .then((res) => {
-        dispatch({ type: "updatePosts", value: res.data });
+        location === (`/single-post/${postId}`)
+        ? dispatch({ type: 'setSinglePost', value: res.data })
+        : dispatch({ type: "updatePosts", value: res.data })
       })
       .catch((err) => console.log(err.reponse.data.errMsg));
   }

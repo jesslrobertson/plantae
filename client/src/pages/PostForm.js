@@ -35,6 +35,7 @@ export default function PostForm(props) {
     }));
   }
 
+
   function handleSubmit(e) {
     e.preventDefault();
     if (state.edit === false) {
@@ -49,7 +50,8 @@ export default function PostForm(props) {
 
   const { title, description, imgUrl, tag } = inputs;
   return (
-    <div>
+    <div className='post-form-box'>
+      <h3>Create a new post</h3>
       <form onSubmit={handleSubmit} className="post-form">
         <input
           type="text"
@@ -58,13 +60,13 @@ export default function PostForm(props) {
           onChange={handleChange}
           placeholder="Title"
         />
-        <input
+        <textarea
           type="text"
           name="description"
           value={description}
           onChange={handleChange}
           placeholder="Content"
-          className="post-content"
+          className="post-description"
         />
         <input
           type="text"
@@ -73,13 +75,18 @@ export default function PostForm(props) {
           onChange={handleChange}
           placeholder="Image Url"
         />
-        <select id="tag" value={inputs.tag} onChange={handleChange} name="tag">
+        <select id="tag" value={inputs.tag} onChange={handleChange} name="tag" className='select-tag'>
+          <option value={null} className='null-select'>Select Tag</option>
           <option value="happy-plant">Happy Plant</option>
           <option value="seeking-advice">Seeking Advice</option>
           <option value="new-growth">New Growth</option>
           <option value="identification">Identification</option>
+          <option value="new-plant">Seeking Advice</option>
+          <option value="props">New Growth</option>
+          <option value="identification">Identification</option>
         </select>
-        <button>Submit</button>
+        <button type='submit' className='submit-button' disabled={title?.length < 1}>Submit</button>
+        <button type='button' onClick={() => navigate(-1) } className='cancel-button'>Cancel</button>
       </form>
     </div>
   );

@@ -13,12 +13,8 @@
   --m-text-alt: 1.1rem;
   --s-text: clamp(1rem, 0.9333333333333333rem + 0.33333333333333326vw, 1.2rem);
   --s-text-alt: 1rem;
-  --xs-text: clamp(
-    0.85rem,
-    0.7999999999999999rem + 0.25000000000000006vw,
-    1rem
-  );
-  --xs-text-alt: 0.85rem;
+  --xs-text: clamp(0.9rem, 0.85rem + 0.25000000000000006vw, 1.05rem);
+  --xs-text-alt: 0.9rem;
   --xxs-text: clamp(0.75rem, 0.7rem + 0.25000000000000006vw, 0.9rem);
   --xxs-text-alt: 0.75rem;
   --display-font: "Forum", serif;
@@ -29,10 +25,11 @@
   --white: #fafafa;
   --sage: #b8d9b0;
   --dark-green: #0e2603;
-  --black: #030d02;
+  --black: #031002;
   --bright-green: #628c07;
   --brigher-green: #97bf06;
-  --grey-green: #d8dfd5;
+  --grey-green: #f1f6ef;
+  --pale-grey-green: #eef3ec;
   --transition: 0.4s ease;
   box-sizing: border-box;
   margin: 0;
@@ -41,6 +38,7 @@
 
 .app {
   min-height: 100vh;
+  background-color: var(--pale-grey-green);
 }
 
 h1,
@@ -48,7 +46,9 @@ h2,
 h3,
 h4,
 h5,
-h6 {
+h6,
+span,
+p {
   color: var(--black);
 }
 
@@ -70,11 +70,19 @@ h3 {
 h4 {
   font-size: var(--m-text-alt);
   font-size: var(--m-text);
+  font-weight: 700;
 }
 
 h5 {
   font-size: var(--s-text-alt);
   font-size: var(--s-text);
+  font-weight: 600;
+}
+
+h6 {
+  font-size: var(--xs-text-alt);
+  font-size: var(--xs-text);
+  font-weight: 600;
 }
 
 button {
@@ -89,7 +97,7 @@ input {
   border: none;
   padding: 0.3rem;
   border-radius: var(--s-radius);
-  margin: 0.2rem;
+  margin: 0.5rem;
 }
 button.liked {
   background-color: var(--brigher-green);
@@ -126,6 +134,7 @@ button.liked {
 
 .logged-in-user{
   margin: 1rem;
+  padding: 1rem 0 1rem 0;
   border-top: var(--white) solid 2px;
   border-bottom: var(--white) solid 2px;
 }
@@ -153,6 +162,7 @@ button.liked {
 
 .menu-lines {
   margin-right: 1rem;
+  cursor: pointer;
 }
 .link-container {
   background-color: var(--dark-green);
@@ -164,21 +174,22 @@ button.liked {
 }
 
 .menu {
-  width: 30vw;
+  width: 20vw;
   position: fixed;
   right: 0;
   top: 7rem;
-  height: 100vh;
+  height: 95vh;
   min-width: 320px;
   background-color: var(--dark-green);
   opacity: 100%;
   z-index: 100;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
 }
 
 .menu-button {
-  margin-top: 70vh;
+  margin-bottom: 10vh;
 }
 
 .show {
@@ -333,7 +344,7 @@ button.liked {
 }
 .avatar-name {
   padding-left: 10px;
-  margin: 1rem;
+  margin: .5rem;
 }
 
 .avatar-name.light {
@@ -358,8 +369,8 @@ button.liked {
   justify-content: space-between;
   border-radius: var(--l-radius); */
   justify-content: space-evenly;
-  height: 30rem;
-  width: 17rem;
+  height: 35rem;
+  width: 20rem;
   margin: 1rem;
 }
 
@@ -376,6 +387,7 @@ button.liked {
   margin: 1rem;
   width: 95%;
   min-height: 5rem;
+  cursor: pointer;
 }
 
 .post-upper.full-post{
@@ -387,16 +399,6 @@ button.liked {
   display: flex;
   flex-direction: column;
   width: 100%;
-}
-
-.post-upper {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin: 0rem 1rem 0rem 1rem;
-  width: 95%;
-  min-height: 4rem;
 }
 
 .post-content.compact-post {
@@ -415,10 +417,11 @@ button.liked {
 
 .post-img.compact-post {
   max-height: 20rem;
-  width: 17rem;
+  width: 20rem;
   object-fit: cover;
   margin: 0;
   padding: 0;
+  cursor: pointer;
 }
 
 .post-img.full-post {
@@ -485,6 +488,7 @@ button.liked {
   margin: 5px;
   padding: 0;
   display: inline;
+  cursor: pointer;
 }
 
 .liked-heart {
@@ -503,22 +507,44 @@ button.liked {
   text-align: center;
 }
 
+.post-tag.filter {
+  cursor: pointer;
+}
+
 .post-tag.happy-plant {
-  background-color: var(--brigher-green);
-  color: var(--content-font);
+  background-color: #036158;
+  max-width: 7rem;
 }
 .post-tag.new-growth {
   background-color: var(--bright-green);
+  max-width: 7rem;
 }
 
 .post-tag.identification {
   background-color: #daa520;
   color: var(--content-font);
+  max-width: 9rem;
 }
 
 .post-tag.seeking-advice {
+  background-color: var(--brigher-green);
+  color: var(--content-font);
+  max-width: 8rem;
+}
+
+.post-tag.new-plant {
+  background-color: var(--grey-green);
+  color: var(--black);
+  max-width: 6rem;
+}
+
+.post-tag.props {
+  background-color: rgb(67, 142, 222);
+  max-width: 5rem;
+}
+
+.post-tag.all-posts {
   background-color: var(--dark-green);
-  max-width: 7rem;
 }
 
 .edit-delete-box {
@@ -630,4 +656,79 @@ label {
 
 .comment-author, .comment-content {
   margin: .5rem;
+}
+
+/* Post form styles */
+.post-form-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100vw;
+  height: 100vh;
+}
+
+.post-form {
+  background-color: var(--sage);
+  border-radius: var(--l-radius);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem;
+  margin: 1rem;
+  min-width: 300px;
+  width: 40vw;
+  min-height: 400px;
+  height: 55vh;
+}
+
+.post-form > * {
+  width: 95%;
+  margin: .25rem;
+  font-family: var(--content-font);
+}
+
+.post-description {
+  border: none;
+  border-radius: var(--s-radius);
+  height: 35vh;
+  min-height: 200px;
+  overflow-y: scroll;
+  padding: .3rem;
+}
+
+.select-tag {
+  border: none;
+  height: 2rem;
+  padding: .25rem;
+  border-radius: var(--s-radius);
+  padding: .3rem;
+}
+
+.null-select {
+  color: gray;
+}
+
+.submit-button:hover {
+  background-color: var(--brigher-green);
+}
+.cancel-button:hover{
+  background-color: var(--dark-green);
+  color: var(--white);
+}
+
+.filter-box {
+  height: 3rem;
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--sage);
+}
+
+.post-tag.filter {
+  height: 1rem;
+  margin: 1rem;
+  padding: .4rem .6rem;
 }
