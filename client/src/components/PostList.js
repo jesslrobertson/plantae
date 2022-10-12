@@ -7,8 +7,6 @@ export default function PostList(props) {
   const { state } = useContext(ContentContext);
   const [filteredPosts, setFilteredPosts] = useState()
   const tags = state.posts.map(post => post.tag)
-  console.log(tags)
-  console.log(state.posts)
 
   const displayAll = (
       <>

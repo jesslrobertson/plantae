@@ -13,6 +13,7 @@ const populateQuery = [
 postRouter.get("/", (req, res, next) => {
   Post.find()
     .populate(populateQuery)
+    .sort({ timestamp: 'desc'})
     .exec((err, posts) => {
       if (err) {
         res.status(500);
@@ -40,12 +41,12 @@ postRouter.post("/", (req, res, next) => {
 postRouter.get("/:user", (req, res, next) => {
   Post.find({ user: req.auth._id })
     .populate(populateQuery)
+    .sort({ timestamp: 'desc'})
     .exec((err, posts) => {
       if (err) {
         res.status(500);
         return next(err);
       }
-      console.log(posts);
       return res.status(200).send(posts);
     });
 });

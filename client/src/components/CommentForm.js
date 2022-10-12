@@ -1,10 +1,12 @@
 import React, { useContext, useState, useRef } from "react";
 import { ContentContext } from "../context/ContentProvider";
+import { UserContext } from "../context/UserProvider";
 import useDynamicHeightField from "./useDynamicHeightField";
 import cn from "classnames";
 
 export default function CommentForm(props) {
   const { addComment, state } = useContext(ContentContext);
+  const {...userState } = useContext(UserContext);
   const { postId } = props;
   const [commentValue, setCommentValue] = useState({
     comment: "",
@@ -66,7 +68,7 @@ export default function CommentForm(props) {
       >
         <div className="header">
           <div className="user">
-            <span>Commenting as {state.user.username}</span>
+            <span>Commenting as {userState.user.username}</span>
           </div>
         </div>
         <textarea

@@ -75,13 +75,13 @@ export default function Post(props) {
 
   return (
     <div className={`${postStyle} post`} key={postId}>
-      <div className={`post-upper ${postStyle}`} onClick={() => navigate(`/single-post/${postId}`)}>
-        <div className="post-intro">
+      <div className={`post-upper ${postStyle}`}>
+        <div className="post-intro" onClick={() => navigate(`/single-post/${postId}`)}>
           <UserAvatar name={postUser?.username} size={avatarSize} />
           <h5 className="post-title">{title}</h5>
           {tag && <h6 className={`post-tag ${tag}`}>{handleTags(tag)}</h6>}
         </div>
-        {loggedInUser._id === postUser && (
+        {loggedInUser._id === postUser._id && (
           <>{userControls ? showUserControls : hideUserControls}</>
         )}
       </div>

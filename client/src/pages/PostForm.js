@@ -81,9 +81,8 @@ export default function PostForm(props) {
           <option value="seeking-advice">Seeking Advice</option>
           <option value="new-growth">New Growth</option>
           <option value="identification">Identification</option>
-          <option value="new-plant">Seeking Advice</option>
-          <option value="props">New Growth</option>
-          <option value="identification">Identification</option>
+          <option value="new-plant">New Plant</option>
+          <option value="props">Props</option>
         </select>
         <button type='submit' className='submit-button' disabled={title?.length < 1}>Submit</button>
         <button type='button' onClick={() => navigate(-1) } className='cancel-button'>Cancel</button>
