@@ -11,17 +11,12 @@ export default function Feedback(props) {
     removeLike,
     state,
     getOnePost,
+    handleSinglePost
   } = useContext(ContentContext);
   const { postId: thisPostId, likeStatus, comments, likes } = props;
 
 
   let commentTotal = comments?.length;
-
-  function handleSinglePost(idString) {
-    console.log("idString submitted by feedback to handleSinglePost");
-    console.log(idString);
-    getOnePost(idString);
-  }
 
   const location = useLocation();
 

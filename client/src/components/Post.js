@@ -19,7 +19,7 @@ export default function Post(props) {
     comments,
   } = props;
   const { user: loggedInUser } = useContext(UserContext);
-  const { deletePost, state, dispatch } = useContext(ContentContext);
+  const { deletePost, state, dispatch, handleSinglePost } = useContext(ContentContext);
   const [likeStatus, setLikeStatus] = useState("neutral");
   const [postStyle, setPostStyle] = useState();
   const [userControls, setUserControls] = useState(false);
@@ -29,6 +29,8 @@ export default function Post(props) {
   function toggleControls() {
     setUserControls((prev) => !prev);
   }
+
+  console.log(postId)
 
   const showUserControls = (
     <div className="edit-delete-box">
@@ -76,7 +78,10 @@ export default function Post(props) {
   return (
     <div className={`${postStyle} post`} key={postId}>
       <div className={`post-upper ${postStyle}`}>
-        <div className="post-intro" onClick={() => navigate(`/single-post/${postId}`)}>
+        <div className="post-intro" onClick={() => {
+          handleSinglePost(postId)
+          navigate(`/single-post/${postId}`)}}
+          >
           <UserAvatar name={postUser?.username} size={avatarSize} />
           <h5 className="post-title">{title}</h5>
           {tag && <h6 className={`post-tag ${tag}`}>{handleTags(tag)}</h6>}
