@@ -38,7 +38,9 @@
 
 .app {
   min-height: 100vh;
+  height: 100%;
   background-color: var(--pale-grey-green);
+  overflow-y: scroll;
 }
 
 h1,
@@ -318,7 +320,13 @@ button.liked {
   width: 100vw;
   height: 100vh;
   align-items: center;
+  text-align: center;
   justify-content: flex-start;
+}
+.page-title {
+  width: 100vw;
+  padding: 1rem;
+  margin: 0;
 }
 .post-list {
   display: flex;
@@ -344,7 +352,7 @@ button.liked {
 }
 .avatar-name {
   padding-left: 10px;
-  margin: .5rem;
+  margin: .3rem;
 }
 
 .avatar-name.light {
@@ -368,8 +376,9 @@ button.liked {
   align-items: flex-start;
   justify-content: space-between;
   border-radius: var(--l-radius); */
-  justify-content: space-evenly;
-  height: 35rem;
+  justify-content: space-between;
+  align-items: center;
+  height: 33rem;
   width: 20rem;
   margin: 1rem;
 }
@@ -384,9 +393,7 @@ button.liked {
   flex-direction: row;
   justify-content: space-between;
   align-items: flex-start;
-  margin: 1rem;
-  width: 95%;
-  min-height: 5rem;
+  width: 90%;
   cursor: pointer;
 }
 
@@ -398,7 +405,15 @@ button.liked {
 .post-intro {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
   width: 100%;
+}
+
+.menu-dots {
+  z-index: 999;
+  height: 2rem;
+  width: 1.5rem;
 }
 
 .post-content.compact-post {
@@ -406,17 +421,12 @@ button.liked {
   margin: 0;
 }
 .post-upper.compact-post {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin: 1rem;
-  width: 90%;
-  min-height: 5rem;
+  height: 6rem;
+  margin: .5rem 1rem;
 }
 
 .post-img.compact-post {
-  max-height: 20rem;
+  height: 20rem;
   width: 20rem;
   object-fit: cover;
   margin: 0;
@@ -432,6 +442,9 @@ button.liked {
 
 .post-title {
   margin: 0.2rem;
+  text-align: left;
+  max-height: 3rem;
+  overflow: hidden;
 }
 
 .post-author {
@@ -451,9 +464,14 @@ button.liked {
   display: table;
 }
 .feedback-box {
-  align-self: center;
+  align-items: center;
   justify-content: space-between;
   width: 100%;
+}
+
+.feedback-box.list {
+  margin: 1rem;
+  height: 2.5rem;
 }
 
 .feedback-comments {
@@ -517,30 +535,30 @@ button.liked {
 }
 .post-tag.new-growth {
   background-color: var(--bright-green);
-  max-width: 7rem;
+  max-width: 5.5rem;
 }
 
 .post-tag.identification {
   background-color: #daa520;
   color: var(--content-font);
-  max-width: 9rem;
+  max-width: 6.5rem;
 }
 
 .post-tag.seeking-advice {
   background-color: var(--brigher-green);
   color: var(--content-font);
-  max-width: 8rem;
+  max-width: 7rem;
 }
 
 .post-tag.new-plant {
-  background-color: var(--grey-green);
+  background-color: var(--pale-grey-green);
   color: var(--black);
-  max-width: 6rem;
+  max-width: 6.5rem;
 }
 
 .post-tag.props {
-  background-color: rgb(67, 142, 222);
-  max-width: 5rem;
+  background-color: rgb(0, 64, 133);
+  max-width: 3.2rem;
 }
 
 .post-tag.all-posts {
@@ -552,11 +570,15 @@ button.liked {
 }
 
 /* Comment Styles */
+.section-title {
+  margin: 0;
+}
+
 .comment-box {
   display: flex;
   /* flex-direction: column; */
   flex-wrap: wrap;
-  width: 30vw;
+  min-width: 25vw;
   max-width: 400px;
   background-color: var(--sage);
   border: var(--sage) solid 1rem;
@@ -565,6 +587,7 @@ button.liked {
   transition: min-height var(--transition);
   min-height: 30rem;
   max-height: 46px;
+  overflow-y: scroll;
   border-radius: 10px;
 }
 
@@ -578,6 +601,7 @@ button.liked {
   font-size: 16px;
   font-family: var(--content-font);
   width: 100%;
+  min-width: 25vw;
   border: none;
   padding: 10px;
   min-height: 60px;

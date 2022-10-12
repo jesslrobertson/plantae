@@ -10,13 +10,10 @@ export default function Feedback(props) {
     likePost,
     removeLike,
     state,
-    // singlePost,
     getOnePost,
   } = useContext(ContentContext);
   const { postId: thisPostId, likeStatus, comments, likes } = props;
 
-  console.log("postId from feedback");
-  console.log(thisPostId);
 
   let commentTotal = comments?.length;
 
@@ -61,7 +58,7 @@ export default function Feedback(props) {
   );
 
   const listView = (
-    <div className="feedback-box">
+    <div className="feedback-box list">
       <div className="like-box">
         <h6 className="like-number">{likes?.length}</h6>
         {likeStatus === "liked" ? likedHeart : neutralHeart}

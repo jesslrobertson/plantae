@@ -8,7 +8,7 @@ export default function CommentBox() {
 
   return (
     <div className="comment-container">
-      <h4>Comments</h4>
+      <h4 className='section-title'>Comments</h4>
       {currentPost.comments &&
         currentPost.comments?.map((comment) => (
           <Comment {...comment} key={comment._id} postId={currentPost.postId} />

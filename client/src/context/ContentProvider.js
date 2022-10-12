@@ -114,7 +114,6 @@ export default function ContentProvider(props) {
   }
 
   function getUserPosts() {
-    console.log("get user posts called");
     contentAxios
       .get("/api/post/user")
       .then((res) => {
@@ -133,19 +132,15 @@ export default function ContentProvider(props) {
   }
 
   function getOnePost(postId) {
-    console.log("get one post called");
-    console.log(postId);
     contentAxios
       .get(`/api/post/singlePost/${postId}`)
       .then((res) => {
-        console.log(res.data[0]);
         dispatch({ type: "getOnePost", value: res.data[0] });
       })
       .catch((err) => console.log(err.response.data.errMsg));
   }
 
   function addPost(newPost) {
-    console.log(newPost);
     contentAxios
       .post("/api/post", newPost)
       .then((res) => {
@@ -159,7 +154,6 @@ export default function ContentProvider(props) {
       .delete(`/api/post/${postId}`)
       .then((res) => {
         const freshPosts = state.posts.filter((post) => post._id !== postId);
-        console.log(freshPosts);
         dispatch({ type: "removePost", value: freshPosts });
       })
       .catch((err) => console.log(err.response.data.errMsg));
@@ -175,7 +169,6 @@ export default function ContentProvider(props) {
   }
 
   function likePost(postId) {
-    console.log("adding like");
     contentAxios
       .put(`/api/post/like/${postId}`)
       .then((res) => {
@@ -187,7 +180,6 @@ export default function ContentProvider(props) {
   }
 
   function removeLike(postId) {
-    console.log("removing like");
     contentAxios
       .put(`/api/post/removeLike/${postId}`)
       .then((res) => {
@@ -199,12 +191,9 @@ export default function ContentProvider(props) {
   }
 
   function addComment(newComment, postId) {
-    console.log(newComment);
     contentAxios
       .post(`/api/comment/${postId}`, newComment)
       .then((res) => {
-        console.log("res from comment update");
-        console.log(res.data);
         dispatch({
           type: "addComment",
           value: res.data.comments,
@@ -214,12 +203,9 @@ export default function ContentProvider(props) {
   }
 
   function deleteComment(postId, commentId) {
-    console.log("comment Id");
-    console.log(commentId);
     contentAxios
       .delete(`/api/comment/${postId}/${commentId}`)
       .then((res) => {
-        console.log(res.data);
         dispatch({
           type: "removeComment",
           value: res.data.comments,
