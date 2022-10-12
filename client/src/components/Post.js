@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useNavigate, useLocation, Link } from "react-router-dom";
 import { UserContext } from "../context/UserProvider";
 import { ContentContext } from "../context/ContentProvider";
 import { ReactComponent as MenuDots } from "../assets/MenuDots.svg";
@@ -19,7 +19,8 @@ export default function Post(props) {
     comments,
   } = props;
   const { user: loggedInUser } = useContext(UserContext);
-  const { deletePost, state, dispatch, handleSinglePost } = useContext(ContentContext);
+  const { deletePost, state, dispatch, handleSinglePost } =
+    useContext(ContentContext);
   const [likeStatus, setLikeStatus] = useState("neutral");
   const [postStyle, setPostStyle] = useState();
   const [userControls, setUserControls] = useState(false);
@@ -29,8 +30,6 @@ export default function Post(props) {
   function toggleControls() {
     setUserControls((prev) => !prev);
   }
-
-  console.log(postId)
 
   const showUserControls = (
     <div className="edit-delete-box">
@@ -74,30 +73,37 @@ export default function Post(props) {
   function handleTags(string) {
     return string.split("-").join(" ");
   }
-
   return (
     <div className={`${postStyle} post`} key={postId}>
       <div className={`post-upper ${postStyle}`}>
-        <div className="post-intro" onClick={() => {
-          handleSinglePost(postId)
-          navigate(`/single-post/${postId}`)}}
+        <Link to={`/single-post/${postId}`} className="link-element">
+          <div
+            className="post-intro"
+            onClick={() => {
+              handleSinglePost(postId);
+            }}
           >
-          <UserAvatar name={postUser?.username} size={avatarSize} />
-          <h5 className="post-title">{title}</h5>
-          {tag && <h6 className={`post-tag ${tag}`}>{handleTags(tag)}</h6>}
-        </div>
+            <UserAvatar name={postUser?.username} size={avatarSize} />
+            <h5 className="post-title">{title}</h5>
+            {tag && <h6 className={`post-tag ${tag}`}>{handleTags(tag)}</h6>}
+          </div>
+        </Link>
         {loggedInUser._id === postUser._id && (
           <>{userControls ? showUserControls : hideUserControls}</>
         )}
       </div>
       <div className={`post-content ${postStyle}`}>
         {imgUrl && (
-          <img
-            src={imgUrl}
-            alt="user image"
-            className={`post-img ${postStyle}`}
-            onClick={() => navigate(`/single-post/${postId}`)}
-          />
+          <Link to={`/single-post/${postId}`} className="link-element">
+            <img
+              src={imgUrl}
+              alt="user image"
+              className={`post-img ${postStyle}`}
+              onClick={() => {
+                handleSinglePost(postId);
+              }}
+            />
+          </Link>
         )}
         {location === `/single-post/${postId}` && (
           <p className="post-description">{description}</p>
