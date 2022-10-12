@@ -5,32 +5,35 @@ import { ContentContext } from "../context/ContentProvider";
 
 export default function PostList(props) {
   const { state } = useContext(ContentContext);
-  const [filteredPosts, setFilteredPosts] = useState()
-  const tags = state.posts.map(post => post.tag)
+  const [filteredPosts, setFilteredPosts] = useState();
+  const tags = state.posts.map((post) => post.tag);
 
   const displayAll = (
-      <>
-        {state?.posts?.map((post, index) => (
-          <Post {...post} key={post._id} id={post._id} index={index} />
-        ))}
-      </>
-  )
+    <>
+      {state?.posts?.map((post, index) => (
+        <Post {...post} key={post._id} id={post._id} index={index} />
+      ))}
+    </>
+  );
 
   const displayFilteredPosts = (
     <>
-        {filteredPosts?.map((post, index) => (
-          <Post {...post} key={post._id} id={post._id} index={index} />
-        ))}
-      </>
-  )
+      {filteredPosts?.map((post, index) => (
+        <Post {...post} key={post._id} id={post._id} index={index} />
+      ))}
+    </>
+  );
 
   return (
-    <div className='post-list'>
-    <Filter postArray={state.posts} setFilteredPosts={setFilteredPosts} tags={tags} />
-    {
-      filteredPosts 
-      ? displayFilteredPosts
-      : displayAll
-    }</div>
-  )
-};
+    <div className="post-list-box">
+      <Filter
+        postArray={state.posts}
+        setFilteredPosts={setFilteredPosts}
+        tags={tags}
+      />
+      <div className="post-list">
+        {filteredPosts ? displayFilteredPosts : displayAll}
+      </div>
+    </div>
+  );
+}
