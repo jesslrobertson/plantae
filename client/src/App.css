@@ -237,12 +237,14 @@ button.liked {
   height: 100vh;
   width: 100vw;
   display: flex;
+  background-repeat: no-repeat;
+  background-size: cover;
   align-items: center;
   justify-content: center;
   position: relative;
 }
 
-.auth-intro {
+.auth-intro, .welcome {
   color: var(--white);
   padding: 1rem;
   border-radius: var(--l-radius);
@@ -293,7 +295,7 @@ button.liked {
   font-weight: 400;
 }
 
-.home-page {
+.home-page, .profile-page {
   display: flex;
   flex-direction: column;
   width: 100vw;
@@ -600,8 +602,12 @@ label {
 .single-comment-box {
   background-color: var(--sage);
   margin: 1rem 0 1rem 0;
-  padding: 1rem;
+  padding-left: .5rem;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
+}
+
+.comment-author, .comment-content {
+  margin: .5rem;
 }

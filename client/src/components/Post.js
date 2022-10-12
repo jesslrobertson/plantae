@@ -45,14 +45,14 @@ export default function Post(props) {
 
   //handle post display
   useEffect(() => {
-    location !== ("/home" || "/profile")
+    location === `/single-post/${postId}`
       ? setPostStyle("full-post")
       : setPostStyle("compact-post");
   }, [location]);
 
   //handle like status
   useEffect(() => {
-    if (likes?.includes(loggedInUser._id)) {
+  if (likes?.includes(loggedInUser._id)) {
       setLikeStatus("liked");
     } else {
       setLikeStatus("neutral");
@@ -75,7 +75,7 @@ export default function Post(props) {
       <div className={`post-upper ${postStyle}`}>
         <div className="post-intro">
           <h5 className="post-title">{title}</h5>
-          <h6 className="post-author">{`By ${loggedInUser.username}`}</h6>
+          <h6 className="post-author">{`By ${postUser?.username}`}</h6>
           {tag && <h6 className={`post-tag ${tag}`}>{handleTags(tag)}</h6>}
         </div>
         {loggedInUser._id === postUser && (

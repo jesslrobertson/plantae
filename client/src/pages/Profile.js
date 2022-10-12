@@ -22,11 +22,8 @@ export default function Profile(){
   }, [])
   
   return(
-    <div>
-      <Link to='/new-post'>
-        <button>New Post</button>
-      </Link>
-      <h2>Hello, {username}. Here are your posts: </h2>
+    <div className='profile-page'>
+      <h4>Hello, {username}. Here are your posts: </h4>
       <PostList posts={state.posts} />
 
     </div>

@@ -5,9 +5,6 @@ import { ContentContext } from '../context/ContentProvider'
 export default function CommentBox(){
   const { state } = useContext(ContentContext)
   const currentPost = state.currentPost
-  useEffect(() => {
-    console.log(currentPost)
-  }, [state])
 
   return (
     <div className="comment-container">

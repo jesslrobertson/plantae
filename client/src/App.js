@@ -1,5 +1,5 @@
-import React, { useContext, useEffect } from 'react'
-import { BrowserRouter as Router, Routes, Route, Navigate, useParams } from 'react-router-dom'
+import React, { useContext } from 'react'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Nav from './components/Nav'
 import Auth from './components/Auth'
 import Profile from './pages/Profile'
