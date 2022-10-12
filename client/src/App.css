@@ -328,6 +328,14 @@ button.liked {
   padding: 1rem;
   margin: 0;
 }
+
+.post-list-box {
+  width: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
 .post-list {
   display: flex;
   flex-direction: row;
@@ -335,6 +343,7 @@ button.liked {
   align-items: flex-start;
   justify-content: center;
   width: 100vw;
+  max-width: 1500px;
 }
 
 .single-post {
