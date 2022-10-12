@@ -134,11 +134,13 @@ export default function ContentProvider(props) {
 
   function getOnePost(postId) {
     console.log("get one post called")
+    console.log(postId)
     contentAxios
-      .get(`/api/post/${postId}`)
+      .get(`/api/post/singlePost/${postId}`)
       .then((res) => {
+        console.log(res.data[0])
         dispatch({ type: "getOnePost", value: res.data[0] });
-        setSinglePost(res.data);
+        // setSinglePost(res.data);
         //clean this up so we're not overwriting state
       })
       .catch((err) => console.log(err.response.data.errMsg));

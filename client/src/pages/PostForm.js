@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect, useParams } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ContentContext } from "../context/ContentProvider";
 

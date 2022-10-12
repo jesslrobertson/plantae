@@ -11,8 +11,8 @@ export default function Comment(props){
 
   const ownComment = (
     <>
-      <h5>{ author.username }</h5>
-      <p>{ comment }</p>
+      <h5 className="comment-author">{ author.username }</h5>
+      <p className='comment-content'>{ comment }</p>
       <div>
         <button onClick={() => deleteComment(postId, commentId )}>Delete</button>
       </div>
@@ -21,8 +21,8 @@ export default function Comment(props){
 
   const otherComment = (
     <>
-      <h5>{ author.username }</h5>
-      <p>{ comment }</p>
+      <h5 className="comment-author">{ author.username }</h5>
+      <p className='comment-content'>{ comment }</p>
     </>
   )
 

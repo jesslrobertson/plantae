@@ -237,12 +237,14 @@ button.liked {
   height: 100vh;
   width: 100vw;
   display: flex;
+  background-repeat: no-repeat;
+  background-size: cover;
   align-items: center;
   justify-content: center;
   position: relative;
 }
 
-.auth-intro {
+.auth-intro, .welcome {
   color: var(--white);
   padding: 1rem;
   border-radius: var(--l-radius);
@@ -293,10 +295,21 @@ button.liked {
   font-weight: 400;
 }
 
+.home-page, .profile-page {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100vh;
+  align-items: center;
+  justify-content: flex-start;
+}
 .post-list {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100vw;
 }
 
 .single-post {
@@ -318,15 +331,16 @@ button.liked {
   justify-content: space-between;
   border-radius: var(--l-radius);
 }
-.compact-post {
+.post.compact-post {
   /* display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: space-between;
   border-radius: var(--l-radius); */
+  justify-content: space-evenly;
   height: 30rem;
   width: 17rem;
-  margin: 2rem;
+  margin: 1rem;
 }
 
 .full-post {
@@ -344,16 +358,47 @@ button.liked {
   min-height: 5rem;
 }
 
+.post-upper.full-post{
+  margin: 1rem;
+  width: 95%;
+  min-height: 5rem;
+}
 .post-intro {
   display: flex;
   flex-direction: column;
   width: 100%;
 }
 
+.post-upper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 0rem 1rem 0rem 1rem;
+  width: 95%;
+  min-height: 4rem;
+}
+
+.post-content.compact-post {
+  display: flex;
+  margin: 0;
+}
+.post-upper.compact-post {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 1rem;
+  width: 90%;
+  min-height: 5rem;
+}
+
 .post-img.compact-post {
   max-height: 20rem;
   width: 17rem;
   object-fit: cover;
+  margin: 0;
+  padding: 0;
 }
 
 .post-img.full-post {
@@ -557,8 +602,12 @@ label {
 .single-comment-box {
   background-color: var(--sage);
   margin: 1rem 0 1rem 0;
-  padding: 1rem;
+  padding-left: .5rem;
   border-radius: 10px;
   display: flex;
   flex-direction: column;
+}
+
+.comment-author, .comment-content {
+  margin: .5rem;
 }

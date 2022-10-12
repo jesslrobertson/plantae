@@ -1,22 +1,26 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext } from "react";
 import { useLocation } from "react-router-dom";
 import { ContentContext } from "../context/ContentProvider";
 import { Link } from "react-router-dom";
-import Heart from "./Heart";
 import {ReactComponent as SolidHeart } from '../assets/solid-heart.svg'
 import {ReactComponent as LineHeart } from '../assets/line-heart.svg'
 
 export default function Feedback(props) {
-  const { likePost, removeLike, state, singlePost, getOnePost } =
+  const { likePost, removeLike, state, 
+    // singlePost, 
+    getOnePost } =
     useContext(ContentContext);
-  const { postId, likeStatus, comments, likes } = props;
+  const { postId: thisPostId, likeStatus, comments, likes } = props;
 
-  
+  console.log('postId from feedback')
+  console.log(thisPostId)
 
   let commentTotal = comments?.length;
 
-  function handleSinglePost(postId) {
-    getOnePost(postId);
+  function handleSinglePost(idString) {
+    console.log('idString submitted by feedback to handleSinglePost')
+    console.log(idString)
+    getOnePost(idString);
   }
 
   const location = useLocation();
@@ -26,8 +30,8 @@ export default function Feedback(props) {
           className='liked-heart heart'
           onClick={
             likeStatus === "liked"
-              ? () => removeLike(postId)
-              : () => likePost(postId)
+              ? () => removeLike(thisPostId)
+              : () => likePost(thisPostId)
           }
         />
   )
@@ -37,8 +41,8 @@ export default function Feedback(props) {
           className='neutral-heart heart'
           onClick={
             likeStatus === "liked"
-              ? () => removeLike(postId)
-              : () => likePost(postId)
+              ? () => removeLike(thisPostId)
+              : () => likePost(thisPostId)
           }
         />
   )
@@ -46,7 +50,7 @@ export default function Feedback(props) {
   const singlePostView = (
     <div className="feedback-box">
       <div className="like-box">
-        <h6 className='like-number'>{singlePost?.likes?.length}</h6>
+        <h6 className='like-number'>{state.currentPost?.likes?.length}</h6>
         {likeStatus === "liked"
         ? likedHeart
       : neutralHeart}
@@ -63,10 +67,10 @@ export default function Feedback(props) {
           ? likedHeart
         : neutralHeart}
       </div>
-      <Link to={`/single-post/${postId}`} className="link-element">
+      <Link to={`/single-post/${thisPostId}`} className="link-element">
         <div
           className="feedback-comments"
-          onClick={() => handleSinglePost(postId)}
+          onClick={() => handleSinglePost(thisPostId)}
         >
           <h6>{commentTotal} Comments</h6>
         </div>
@@ -74,5 +78,5 @@ export default function Feedback(props) {
     </div>
   );
 
-  return <>{location.pathname != "/single-post" ? listView : singlePostView}</>;
+  return <>{location.pathname !== `/single-post/${thisPostId}` ? listView : singlePostView}</>;
 }
