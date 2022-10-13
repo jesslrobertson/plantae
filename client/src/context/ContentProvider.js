@@ -216,6 +216,12 @@ export default function ContentProvider(props) {
       });
   }
 
+  function handleSinglePost(postId) {
+    console.log("postId submitted by feedback to handleSinglePost");
+    console.log(postId);
+    getOnePost(postId);
+  }
+
   return (
     <ContentContext.Provider
       value={{
@@ -233,6 +239,7 @@ export default function ContentProvider(props) {
         setSinglePost,
         deleteComment,
         editPost,
+        handleSinglePost
       }}
     >
       {props.children}
