@@ -53,7 +53,7 @@ export default function Auth(){
     <div className={`auth-page` }>
       <div className='auth-intro'>
         <Logo />
-        <h3 className='auth welcome'>A place for people who love plants, to share, learn, and grow</h3>
+        <h3 className='auth welcome'>A place for people who love plants to share, learn, and grow</h3>
         <button onClick={() => handleAuthDisplay('login')}>Login</button>
         <button onClick={() => handleAuthDisplay('signup')}>Sign Up</button>
       </div>

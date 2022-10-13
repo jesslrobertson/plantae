@@ -13,11 +13,12 @@ export default function Post(props) {
     description,
     tag,
     user: postUser,
-    _id: postId,
+    id: postId,
     likes,
     index,
     comments,
   } = props;
+  console.log(props)
   const { user: loggedInUser } = useContext(UserContext);
   const { deletePost, state, dispatch, handleSinglePost } =
     useContext(ContentContext);
@@ -31,18 +32,23 @@ export default function Post(props) {
     setUserControls((prev) => !prev);
   }
 
+  console.log('post user')
+  console.log(postUser)
+  console.log('loggedInUser')
+  console.log(loggedInUser)
+
   const showUserControls = (
-    <div className="edit-delete-box">
+    <>
       <button onClick={() => handleEdit(postId)}>Edit</button>
       <button onClick={() => deletePost(postId)}>Delete</button>
       <span onClick={toggleControls}>X</span>
-    </div>
+    </>
   );
 
   const hideUserControls = (
-    <div className="edit-delete-box">
+    <>
       <MenuDots onClick={toggleControls} />
-    </div>
+    </>
   );
 
   //handle post display
@@ -66,7 +72,9 @@ export default function Post(props) {
   function handleEdit(postId) {
     let currentPost = state.posts.find((post) => post._id === postId);
     dispatch({ type: "setSinglePost", value: currentPost });
+    console.log("dispatched setSinglePost");
     dispatch({ type: "edit" });
+    console.log("dispatched edit");
     navigate(`/edit-post`);
   }
 
@@ -77,45 +85,49 @@ export default function Post(props) {
   return (
     <div className={`${postStyle} post`} key={postId}>
       <div className={`post-upper ${postStyle}`}>
-        <Link to={`/single-post/${postId}`} className={`link-element`}>
+        <Link
+          to={`/single-post/${postId}`}
+          className={`link-element post-upper`}
+        >
           <div
             className={`post-intro ${postStyle}`}
-            onClick={() => {
-              handleSinglePost(postId);
-            }}
+            onClick={() => handleSinglePost(postId)}
           >
             <UserAvatar name={postUser?.username} size={avatarSize} />
             <h5 className="post-title">{title}</h5>
             {tag && <h6 className={`post-tag ${tag}`}>{handleTags(tag)}</h6>}
           </div>
-        </Link>
-        </div>
-        <div className={`post-content ${postStyle}`}>
-          {imgUrl && (
-            <Link to={`/single-post/${postId}`} className={`link-element`}>
-              <img
-                src={imgUrl}
-                alt="user image"
-                className={`post-img ${postStyle}`}
-                onClick={() => {
-                  handleSinglePost(postId);
-                }}
-              />
             </Link>
-          )}
-          {location === `/single-post/${postId}` && (
-            <p className="post-description">{description}</p>
-          )}
-        </div>
-        <Feedback
-          postId={postId}
-          key={postId}
-          likes={likes}
-          index={index}
-          likeStatus={likeStatus}
-          setLikeStatus={setLikeStatus}
-          comments={comments}
-        />
+          <div className="edit-delete-box">
+          {loggedInUser?._id === postUser?._id && 
+            userControls ? showUserControls : hideUserControls
+          }
+          </div>
       </div>
+      <div className={`post-content ${postStyle}`}>
+        {imgUrl && (
+          <Link to={`/single-post/${postId}`} className={`link-element`}>
+            <img
+              src={imgUrl}
+              alt="user image"
+              className={`post-img ${postStyle}`}
+              onClick={() => handleSinglePost(postId)}
+            />
+          </Link>
+        )}
+        {location === `/single-post/${postId}` && (
+          <p className="post-description">{description}</p>
+        )}
+      </div>
+      <Feedback
+        postId={postId}
+        key={postId}
+        likes={likes}
+        index={index}
+        likeStatus={likeStatus}
+        setLikeStatus={setLikeStatus}
+        comments={comments}
+      />
+    </div>
   );
 }

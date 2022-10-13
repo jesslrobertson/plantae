@@ -16,7 +16,7 @@ export default function Filter(props){
   return (
     <div className='filter-box'>
       <h6>Filter:</h6>
-      <h6 className={`post-tag all-posts filter`} onClick={() => setFilteredPosts()}>All Posts</h6>
+      <h6 className={`post-tag all-posts filter`} onClick={() => setFilteredPosts()}>all posts</h6>
       {uniqueTags?.map((tag, index) => (
         <TagButton 
           tag={tag} 

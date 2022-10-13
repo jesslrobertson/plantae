@@ -135,7 +135,7 @@ export default function ContentProvider(props) {
     contentAxios
       .get(`/api/post/singlePost/${postId}`)
       .then((res) => {
-        dispatch({ type: "getOnePost", value: res.data[0] });
+        dispatch({ type: "setSinglePost", value: res.data[0] });
       })
       .catch((err) => console.log(err.response.data.errMsg));
   }
@@ -216,6 +216,12 @@ export default function ContentProvider(props) {
       });
   }
 
+  function handleSinglePost(postId) {
+    console.log('postId submitted by to handleSinglePost')
+    console.log(postId)
+    getOnePost(postId);
+  }
+
   return (
     <ContentContext.Provider
       value={{
@@ -233,6 +239,7 @@ export default function ContentProvider(props) {
         setSinglePost,
         deleteComment,
         editPost,
+        handleSinglePost
       }}
     >
       {props.children}
