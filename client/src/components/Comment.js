@@ -31,7 +31,6 @@ export default function Comment(props) {
         size={20}
         className="comment-author"
       />
-      <h5 className="comment-author">{author.username}</h5>
       <p className="comment-content">{comment}</p>
     </>
   );
