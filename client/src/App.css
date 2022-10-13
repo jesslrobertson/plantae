@@ -579,8 +579,7 @@ button.liked {
 
 .edit-delete-box {
   display: flex;
-  height: 2rem;
-  width: 1.5rem;
+
 }
 
 /* Comment Styles */
