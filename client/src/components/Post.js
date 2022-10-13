@@ -92,7 +92,7 @@ export default function Post(props) {
         </div>
         <div className={`post-content ${postStyle}`}>
           {imgUrl && (
-            <Link to={`/single-post/${postId}`} className={`link-element post-content ${postStyle}`}>
+            <Link to={`/single-post/${postId}`} className={`link-element`}>
               <img
                 src={imgUrl}
                 alt="user image"

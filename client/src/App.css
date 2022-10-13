@@ -442,14 +442,14 @@ button.liked {
   margin: 0;
   padding: 0;
   cursor: pointer;
-  background-color: #fafafaac;
+  /* background-color: #fafafaac; */
 }
 
 .post-img.full-post {
   max-height: 30rem;
   width: fit-content;
   object-fit: contain;
-  background-color: #fafafaac;
+  /* background-color: #fafafaac; */
 }
 
 .post-title {
