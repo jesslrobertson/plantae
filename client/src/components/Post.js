@@ -18,7 +18,6 @@ export default function Post(props) {
     index,
     comments,
   } = props;
-  console.log(props)
   const { user: loggedInUser } = useContext(UserContext);
   const { deletePost, state, dispatch, handleSinglePost } =
     useContext(ContentContext);
@@ -31,11 +30,6 @@ export default function Post(props) {
   function toggleControls() {
     setUserControls((prev) => !prev);
   }
-
-  console.log('post user')
-  console.log(postUser)
-  console.log('loggedInUser')
-  console.log(loggedInUser)
 
   const showUserControls = (
     <>

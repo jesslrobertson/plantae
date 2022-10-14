@@ -19,7 +19,6 @@ postRouter.get("/", (req, res, next) => {
         res.status(500);
         return next(err);
       }
-      console.log(posts);
       return res.status(200).send(posts);
     });
 });

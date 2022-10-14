@@ -1,6 +1,7 @@
 import React, { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { ContentContext } from "../context/ContentProvider";
+import FileUploader from "../components/FileUploader";
 
 const initInputs = {
   title: "",
@@ -87,6 +88,7 @@ export default function PostForm(props) {
         <button type='submit' className='submit-button' disabled={title?.length < 1}>Submit</button>
         <button type='button' onClick={() => navigate(-1) } className='cancel-button'>Cancel</button>
       </form>
+      <FileUploader />
     </div>
   );
 }
