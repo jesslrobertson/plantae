@@ -32,17 +32,17 @@ export default function Post(props) {
   }
 
   const showUserControls = (
-    <>
+    <div className="edit-delete-box">
       <button onClick={() => handleEdit(postId)}>Edit</button>
       <button onClick={() => deletePost(postId)}>Delete</button>
       <span onClick={toggleControls}>X</span>
-    </>
+    </div>
   );
 
   const hideUserControls = (
-    <>
-      <MenuDots onClick={toggleControls} />
-    </>
+    <div className="edit-delete-box">
+      {loggedInUser?._id === postUser?._id && <MenuDots onClick={toggleControls} />}
+    </div>
   );
 
   //handle post display
@@ -50,7 +50,7 @@ export default function Post(props) {
     location === `/single-post/${postId}`
       ? setPostStyle("full-post")
       : setPostStyle("compact-post");
-  }, [location]);
+  }, [location, postId]);
 
   const avatarSize = postStyle === "full-post" ? 40 : 30;
 
@@ -61,7 +61,7 @@ export default function Post(props) {
     } else {
       setLikeStatus("neutral");
     }
-  }, [likes]);
+  }, [likes, loggedInUser._id]);
 
   function handleEdit(postId) {
     let currentPost = state.posts.find((post) => post._id === postId);
@@ -91,19 +91,17 @@ export default function Post(props) {
             <h5 className="post-title">{title}</h5>
             {tag && <h6 className={`post-tag ${tag}`}>{handleTags(tag)}</h6>}
           </div>
-            </Link>
-          <div className="edit-delete-box">
-          {loggedInUser?._id === postUser?._id && 
-            userControls ? showUserControls : hideUserControls
-          }
-          </div>
+        </Link>
+        {loggedInUser?._id === postUser?._id && userControls
+          ? showUserControls
+          : hideUserControls}
       </div>
       <div className={`post-content ${postStyle}`}>
         {imgUrl && (
           <Link to={`/single-post/${postId}`} className={`link-element`}>
             <img
               src={imgUrl}
-              alt="user image"
+              alt={title}
               className={`post-img ${postStyle}`}
               onClick={() => handleSinglePost(postId)}
             />

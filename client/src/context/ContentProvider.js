@@ -1,4 +1,4 @@
-import React, { useReducer, useState } from "react";
+import React, { useEffect, useReducer, useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 
@@ -38,6 +38,10 @@ export default function ContentProvider(props) {
   const [singlePost, setSinglePost] = useState();
   const [uploadedFile, setUploadedFile] = useState({});
   const [uploadPercent, setUploadPercent] = useState(0);
+
+  useEffect(() => {
+    console.log(uploadedFile);
+  }, [uploadedFile]);
 
   function contentReducer(state, action) {
     let newState;

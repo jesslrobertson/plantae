@@ -26,7 +26,7 @@ export default function Comment(props) {
 
   const otherComment = (
     <>
-    <UserAvatar
+      <UserAvatar
         name={author?.username}
         size={20}
         className="comment-author"

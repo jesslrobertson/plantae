@@ -116,6 +116,7 @@ button.liked {
 .link-element {
   text-decoration: none;
   color: (var(--black));
+  padding: 0;
 }
 
 /* Nav styles */
@@ -447,8 +448,11 @@ button.liked {
 
 .post-img.full-post {
   max-height: 30rem;
+  max-width: 30rem;
+  padding: 0;
   width: fit-content;
   object-fit: contain;
+  align-self: center;
   /* background-color: #fafafaac; */
 }
 
@@ -466,15 +470,16 @@ button.liked {
 .post-content.full-post {
   display: flex;
   flex-direction: row;
-  align-items: flex-start;
   justify-content: space-evenly;
   width: 100%;
   background-color: #fafafaac;
+  height: fit-content;
+  max-height: 30rem;
 }
 
-.post-description {
+/* .post-description {
   display: table;
-}
+} */
 .feedback-box {
   align-items: center;
   justify-content: space-between;
@@ -539,42 +544,44 @@ button.liked {
 
 .post-tag.filter {
   cursor: pointer;
+  margin: 0;
 }
 
 .post-tag.happy-plant {
   background-color: #036158;
-  max-width: 7rem;
+  min-width: 6rem;
 }
 .post-tag.new-growth {
   background-color: var(--bright-green);
-  max-width: 5.5rem;
+  min-width: 5.5rem;
 }
 
 .post-tag.identification {
   background-color: #daa520;
   color: var(--content-font);
-  max-width: 6.5rem;
+  min-width: 6.5rem;
 }
 
 .post-tag.seeking-advice {
   background-color: var(--brigher-green);
   color: var(--content-font);
-  max-width: 7rem;
+  min-width: 7rem;
 }
 
 .post-tag.new-plant {
   background-color: var(--pale-grey-green);
   color: var(--black);
-  max-width: 6.5rem;
+  min-width: 5rem;
 }
 
 .post-tag.props {
   background-color: rgb(0, 64, 133);
-  max-width: 3.2rem;
+  min-width: 3.2rem;
 }
 
 .post-tag.all-posts {
   background-color: var(--dark-green);
+  min-width: 4rem;
 }
 
 .edit-delete-box {
@@ -728,15 +735,16 @@ label {
 .post-description {
   border: none;
   border-radius: var(--s-radius);
-  height: 35vh;
   min-height: 200px;
   overflow-y: scroll;
   padding: .3rem;
+  max-height: 30rem;
+  max-width: 25rem;
 }
 
 .select-tag {
   border: none;
-  height: 2rem;
+  height: 1\2rem;
   padding: .25rem;
   border-radius: var(--s-radius);
   padding: .3rem;
@@ -754,18 +762,39 @@ label {
   color: var(--white);
 }
 
-.filter-box {
-  height: 3rem;
-  width: 100vw;
+/* .filter-box {
+  background-color: var(--sage);
+} */
+
+.filter-box{
   display: flex;
-  flex-direction: row;
+  top: 0;
   align-items: center;
   justify-content: center;
+  flex-wrap: wrap;
+  height: fit-content;
+  width: 100vw;
+  gap: .2rem;
   background-color: var(--sage);
 }
 
 .post-tag.filter {
   height: 1rem;
-  margin: 1rem;
   padding: .4rem .6rem;
+  margin: .4rem .4rem;
+}
+
+.filter-title {
+  margin: 0;
+}
+
+@media screen and (max-width: 1000px){
+  .filter-box {
+    height: min-content;
+    flex-wrap: wrap;
+  }
+
+  .post-tag {
+    margin: 0;
+  }
 }

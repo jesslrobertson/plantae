@@ -7,18 +7,18 @@ const initInputs = {
   title: "",
   description: "",
   imgUrl: "",
-  tag: ""
+  tag: "",
 };
 
 export default function PostForm(props) {
-  const { addPost, editPost, dispatch, state, singlePost } =
+  const { addPost, editPost, dispatch, state, uploadedFile, setUploadedFile } =
     useContext(ContentContext);
   const [inputs, setInputs] = useState(initInputs);
   const navigate = useNavigate();
 
   useEffect(() => {
     if (state.edit === true) {
-      const thisPost = state.currentPost
+      const thisPost = state.currentPost;
       setInputs({
         title: thisPost.title,
         description: thisPost.description,
@@ -26,7 +26,7 @@ export default function PostForm(props) {
         tag: thisPost.tag,
       });
     }
-  }, []);
+  }, [state.edit, state.currentPost]);
 
   function handleChange(e) {
     const { name, value } = e.target;
@@ -34,24 +34,30 @@ export default function PostForm(props) {
       ...prevInputs,
       [name]: value,
     }));
+    if (uploadedFile.filePath) {
+      setInputs((prevInputs) => ({
+        ...prevInputs,
+        imgUrl: uploadedFile.filePath,
+      }));
+    }
   }
-
 
   function handleSubmit(e) {
     e.preventDefault();
     if (state.edit === false) {
       addPost(inputs);
     } else {
-      editPost( state.currentPost._id, inputs);
+      editPost(state.currentPost._id, inputs);
       dispatch({ type: "edit" });
     }
     setInputs(initInputs);
     navigate(-1);
+    setUploadedFile({})
   }
 
   const { title, description, imgUrl, tag } = inputs;
   return (
-    <div className='post-form-box'>
+    <div className="post-form-box">
       <h3>Create a new post</h3>
       <form onSubmit={handleSubmit} className="post-form">
         <input
@@ -69,15 +75,26 @@ export default function PostForm(props) {
           placeholder="Content"
           className="post-description"
         />
-        <input
+        {
+          uploadedFile.filePath 
+          ? <a href={uploadedFile.filePath} >Uploaded Image</a>
+          :<input
           type="text"
           name="imgUrl"
-          value={imgUrl}
+          value={imgUrl || uploadedFile.filePath}
           onChange={handleChange}
           placeholder="Image Url"
-        />
-        <select id="tag" value={inputs.tag} onChange={handleChange} name="tag" className='select-tag'>
-          <option value={null} className='null-select'>Select Tag</option>
+        />}
+        <select
+          id="tag"
+          value={tag}
+          onChange={handleChange}
+          name="tag"
+          className="select-tag"
+        >
+          <option value={null} className="null-select">
+            Select Tag
+          </option>
           <option value="happy-plant">Happy Plant</option>
           <option value="seeking-advice">Seeking Advice</option>
           <option value="new-growth">New Growth</option>
@@ -85,8 +102,23 @@ export default function PostForm(props) {
           <option value="new-plant">New Plant</option>
           <option value="props">Props</option>
         </select>
-        <button type='submit' className='submit-button' disabled={title?.length < 1}>Submit</button>
-        <button type='button' onClick={() => navigate(-1) } className='cancel-button'>Cancel</button>
+        <button
+          type="submit"
+          className="submit-button"
+          disabled={title?.length < 1}
+        >
+          Submit
+        </button>
+        <button
+          type="button"
+          onClick={() => {
+            setUploadedFile({})
+            navigate(-1)
+          }}
+          className="cancel-button"
+        >
+          Cancel
+        </button>
       </form>
       <FileUploader />
     </div>

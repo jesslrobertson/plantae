@@ -5,7 +5,7 @@ import useDynamicHeightField from "./useDynamicHeightField";
 import cn from "classnames";
 
 export default function CommentForm(props) {
-  const { addComment, state } = useContext(ContentContext);
+  const { addComment } = useContext(ContentContext);
   const {...userState } = useContext(UserContext);
   const { postId } = props;
   const [commentValue, setCommentValue] = useState({
@@ -37,7 +37,7 @@ export default function CommentForm(props) {
 
   function handleCancel(e) {
     setCommentValue({
-      [e.target.name]: "",
+      comment: "",
     });
     setIsExpanded(false);
   }
@@ -46,7 +46,7 @@ export default function CommentForm(props) {
     e.preventDefault();
     addComment(commentValue, postId);
     setCommentValue({
-      comment: "",
+      [e.target.name]: "",
     });
     setIsExpanded(false);
   }
@@ -86,7 +86,7 @@ export default function CommentForm(props) {
           <button type="button" className="cancel-button" onClick={handleCancel}>
             Cancel
           </button>
-          <button type="submit" className="submit-button" disabled={commentValue.comment?.length == 0}>
+          <button type="submit" className="submit-button" disabled={commentValue.comment?.length === 0}>
             Submit
           </button>
         </div>
