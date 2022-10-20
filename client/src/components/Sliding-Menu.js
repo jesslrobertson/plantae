@@ -16,7 +16,7 @@ export default function SlidingMenu() {
   return (
     <div className="nav-container">
       <MenuLines onMouseDown={toggleMenu} className="menu-lines" />
-      <div className={`${visibility} menu`} onClick={toggleMenu}>
+      <div className={`menu ${visibility}`} onClick={toggleMenu}>
         <div className="nav-links">
           <Link to="/profile" className="nav-link">
             <div className="logged-in-user">

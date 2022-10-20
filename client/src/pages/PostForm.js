@@ -34,13 +34,16 @@ export default function PostForm(props) {
       ...prevInputs,
       [name]: value,
     }));
+  }
+
+  useEffect(() => {
     if (uploadedFile.filePath) {
       setInputs((prevInputs) => ({
         ...prevInputs,
         imgUrl: uploadedFile.filePath,
       }));
     }
-  }
+  }, [uploadedFile])
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -58,7 +61,7 @@ export default function PostForm(props) {
   const { title, description, imgUrl, tag } = inputs;
   return (
     <div className="post-form-box">
-      <h3>Create a new post</h3>
+      <h3 className='page-title'>Create a new post</h3>
       <form onSubmit={handleSubmit} className="post-form">
         <input
           type="text"
@@ -75,15 +78,16 @@ export default function PostForm(props) {
           placeholder="Content"
           className="post-description"
         />
+          <FileUploader />
         {
           uploadedFile.filePath 
-          ? <a href={uploadedFile.filePath} >Uploaded Image</a>
+          ? <a href={uploadedFile.filePath} target="_blank" rel="noreferrer noopener" className='link-element'>Uploaded Image</a>
           :<input
           type="text"
-          name="imgUrl"
+          name="imgUrl - "
           value={imgUrl || uploadedFile.filePath}
           onChange={handleChange}
-          placeholder="Image Url"
+          placeholder="Paste image URL here, or upload image before submitting your post"
         />}
         <select
           id="tag"
@@ -120,7 +124,6 @@ export default function PostForm(props) {
           Cancel
         </button>
       </form>
-      <FileUploader />
     </div>
   );
 }

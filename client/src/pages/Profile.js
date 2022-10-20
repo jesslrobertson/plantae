@@ -16,7 +16,7 @@ export default function Profile() {
 
   return (
     <div className="profile-page">
-      <h3 className='profile-greeting'>Hi, {username}! Here are your posts:</h3>
+      <h5 className='page-title'>Hi, {username}! Here are your posts:</h5>
       <PostList posts={state.posts} />
     </div>
   );

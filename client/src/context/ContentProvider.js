@@ -1,4 +1,4 @@
-import React, { useEffect, useReducer, useState } from "react";
+import React, { useEffect, useReducer, useState, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 
@@ -118,14 +118,14 @@ export default function ContentProvider(props) {
     return newState;
   }
 
-  function getUserPosts() {
+  const getUserPosts = useCallback(() => {
     contentAxios
       .get("/api/post/user")
       .then((res) => {
         dispatch({ type: "getPosts", value: res.data });
       })
       .catch((err) => console.log(err.response.data.errMsg));
-  }
+  })
 
   function getAllPosts() {
     contentAxios

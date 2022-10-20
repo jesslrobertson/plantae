@@ -26,7 +26,7 @@ export default function Filter(props) {
   const showFilters = (
     <div className="filter-box">
       <div className="filter-list filter-box">
-        <button className onClick={ toggleFilters }>Hide Filters</button>
+        <button onClick={ toggleFilters }>Hide Filters</button>
         <h6 className="filter-title">Filter:</h6>
         <h6
           className={`post-tag all-posts filter`}

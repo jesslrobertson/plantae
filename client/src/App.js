@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import {
-  BrowserRouter as Router,
+  // BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
@@ -13,6 +13,7 @@ import SinglePost from "./pages/SinglePost";
 import ProtectedRoute from "./components/ProtectedRoute";
 import "./App.css";
 import PostForm from "./pages/PostForm";
+import Footer from "./components/Footer"
 import { UserContext } from "./context/UserProvider";
 
 export default function App() {
@@ -71,6 +72,7 @@ export default function App() {
           }
         />
       </Routes>
+      <Footer />
     </div>
   );
 }
