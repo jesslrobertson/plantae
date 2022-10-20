@@ -1,5 +1,5 @@
-import React, { useReducer, useState } from "react";
-import { useLocation } from 'react-router-dom'
+import React, { useEffect, useReducer, useState } from "react";
+import { useLocation } from "react-router-dom";
 import axios from "axios";
 
 export const ContentContext = React.createContext();
@@ -12,7 +12,7 @@ contentAxios.interceptors.request.use((config) => {
 });
 
 export default function ContentProvider(props) {
-  const location = useLocation().pathname
+  const location = useLocation().pathname;
   const initState = {
     user: JSON.parse(localStorage.getItem("user")) || {},
     token: localStorage.getItem("token") || "",
@@ -35,8 +35,13 @@ export default function ContentProvider(props) {
   };
 
   const [state, dispatch] = useReducer(contentReducer, initState);
-
   const [singlePost, setSinglePost] = useState();
+  const [uploadedFile, setUploadedFile] = useState({});
+  const [uploadPercent, setUploadPercent] = useState(0);
+
+  useEffect(() => {
+    console.log(uploadedFile);
+  }, [uploadedFile]);
 
   function contentReducer(state, action) {
     let newState;
@@ -172,9 +177,9 @@ export default function ContentProvider(props) {
     contentAxios
       .put(`/api/post/like/${postId}`)
       .then((res) => {
-        location === (`/single-post/${postId}`)
-        ? dispatch({ type: 'setSinglePost', value: res.data })
-        : dispatch({ type: "updatePosts", value: res.data })
+        location === `/single-post/${postId}`
+          ? dispatch({ type: "setSinglePost", value: res.data })
+          : dispatch({ type: "updatePosts", value: res.data });
       })
       .catch((err) => console.log(err.response.data.errMsg));
   }
@@ -183,9 +188,9 @@ export default function ContentProvider(props) {
     contentAxios
       .put(`/api/post/removeLike/${postId}`)
       .then((res) => {
-        location === (`/single-post/${postId}`)
-        ? dispatch({ type: 'setSinglePost', value: res.data })
-        : dispatch({ type: "updatePosts", value: res.data })
+        location === `/single-post/${postId}`
+          ? dispatch({ type: "setSinglePost", value: res.data })
+          : dispatch({ type: "updatePosts", value: res.data });
       })
       .catch((err) => console.log(err.reponse.data.errMsg));
   }
@@ -217,9 +222,35 @@ export default function ContentProvider(props) {
   }
 
   function handleSinglePost(postId) {
-    console.log('postId submitted by to handleSinglePost')
-    console.log(postId)
+    console.log("postId submitted by to handleSinglePost");
+    console.log(postId);
     getOnePost(postId);
+  }
+
+  async function uploadFile(file, fileName) {
+    const formData = new FormData();
+    formData.append("file", file, fileName);
+
+    try {
+      const res = await contentAxios.post("/api/upload", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+        onUploadProgress: (progressEvent) => {
+          setUploadPercent(
+            parseInt(
+              Math.round((progressEvent.loaded * 100) / progressEvent.total)
+            )
+          );
+        },
+      });
+      const { fileName, filePath } = res.data;
+      setUploadedFile({ fileName, filePath });
+    } catch (err) {
+      err.response.status === 500
+        ? console.error(new Error("500: there was an error with the server"))
+        : console.error(err.response.data.msg);
+    }
   }
 
   return (
@@ -239,7 +270,11 @@ export default function ContentProvider(props) {
         setSinglePost,
         deleteComment,
         editPost,
-        handleSinglePost
+        handleSinglePost,
+        uploadFile,
+        uploadedFile,
+        setUploadedFile,
+        uploadPercent,
       }}
     >
       {props.children}
