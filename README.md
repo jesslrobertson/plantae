@@ -20,7 +20,7 @@ Client side of project is created with:
   * "react-router-dom": "^6.4.1",
   * "react-scripts": "5.0.1"
   
-Backend of projecte is created with: 
+Backend of project is created with: 
   * "bcrypt": "^5.0.1",
   * "body-parser": "^1.20.1",
   * "cors": "^2.8.5",
