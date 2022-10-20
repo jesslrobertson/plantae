@@ -13,7 +13,7 @@ export default function CommentForm(props) {
   });
   const [isExpanded, setIsExpanded] = useState(false);
 
-  const INITIAL_HEIGHT = 48;
+  const INITIAL_HEIGHT = 50;
   const outerHeight = useRef(INITIAL_HEIGHT);
   const textRef = useRef(null);
   const containerRef = useRef(null);

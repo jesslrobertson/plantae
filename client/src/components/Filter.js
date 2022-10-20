@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import TagButton from "./TagButton";
 
 export default function Filter(props) {
   const { tags, postArray, setFilteredPosts } = props;
+  const [displayFilters, setDisplayFilters] = useState(true)
 
   const uniqueTags = [...new Set(tags)];
 
@@ -12,9 +13,20 @@ export default function Filter(props) {
     setFilteredPosts(postsByTag);
   }
 
-  return (
+  useEffect(() => {
+    if (window.screen.width < 500){
+    setDisplayFilters(false)
+    }
+  }, [])
+
+  function toggleFilters(){
+    setDisplayFilters(prev => !prev)
+  }
+
+  const showFilters = (
     <div className="filter-box">
       <div className="filter-list filter-box">
+        <button className onClick={ toggleFilters }>Hide Filters</button>
         <h6 className="filter-title">Filter:</h6>
         <h6
           className={`post-tag all-posts filter`}
@@ -32,5 +44,16 @@ export default function Filter(props) {
         ))}
       </div>
     </div>
+  )
+
+  const hideFilters = (
+      <div className='filter-box'>
+        <button onClick={ toggleFilters }>Show filters</button>
+      </div>
+    )
+  
+
+  return (
+    displayFilters ? showFilters : hideFilters
   );
 }

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Post from "./Post";
 import Filter from "./Filter";
 import { ContentContext } from "../context/ContentProvider";

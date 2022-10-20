@@ -108,7 +108,7 @@ export default function Post(props) {
           </Link>
         )}
         {location === `/single-post/${postId}` && (
-          <p className="post-description">{description}</p>
+          <p className={`post-description ${postStyle}`}>{description}</p>
         )}
       </div>
       <Feedback

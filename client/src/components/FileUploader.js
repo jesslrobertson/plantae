@@ -22,7 +22,7 @@ export default function FileUploader() {
     <div className="file-uploader-box">
       <form name="file-uploader-form" onSubmit={handleFileUpload}>
         <label>{fileName}</label>
-        <input type="file" onChange={onChange} />
+        <input className='file-input' type="file" onChange={onChange} />
         <button type="submit">Upload</button>
       </form>
     </div>
