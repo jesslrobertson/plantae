@@ -46,7 +46,7 @@ export default function CommentForm(props) {
     e.preventDefault();
     addComment(commentValue, postId);
     setCommentValue({
-      [e.target.name]: "",
+      comment: "",
     });
     setIsExpanded(false);
   }
