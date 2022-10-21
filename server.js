@@ -11,7 +11,9 @@ const bodyParser = require("body-parser");
 app.use(express.json());
 app.use(morgan("dev"));
 app.disable("etag");
-app.use(cors());
+app.use(cors({
+  origin: true
+}))
 app.use(
   fileUpload({
     createParentPath: true,
