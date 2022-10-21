@@ -1,6 +1,5 @@
 const express = require("express");
 const fileUploadRouter = express.Router();
-const Post = require('../models/post')
 require("dotenv").config();
 
 fileUploadRouter.post("/", (req, res, next) => {
