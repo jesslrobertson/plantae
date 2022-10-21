@@ -10,8 +10,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="home-page">
-      {/* <h3 className="page-title">All Posts</h3> */}
+    <div className="home-page page">
       <PostList />
     </div>
   );

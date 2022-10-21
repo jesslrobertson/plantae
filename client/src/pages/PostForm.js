@@ -60,7 +60,7 @@ export default function PostForm(props) {
 
   const { title, description, imgUrl, tag } = inputs;
   return (
-    <div className="post-form-box">
+    <div className="post-form-box page">
       <h3 className='page-title'>Create a new post</h3>
       <form onSubmit={handleSubmit} className="post-form">
         <input
@@ -84,8 +84,8 @@ export default function PostForm(props) {
           ? <a href={uploadedFile.filePath} target="_blank" rel="noreferrer noopener" className='link-element'>Uploaded Image</a>
           :<input
           type="text"
-          name="imgUrl - "
-          value={imgUrl || uploadedFile.filePath}
+          name="imgUrl"
+          value={imgUrl}
           onChange={handleChange}
           placeholder="Paste image URL here, or upload image before submitting your post"
         />}
