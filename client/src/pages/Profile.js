@@ -15,7 +15,7 @@ export default function Profile() {
   }, []);
 
   return (
-    <div className="profile-page">
+    <div className="profile-page page">
       <h5 className='page-title'>Hi, {username}! Here are your posts:</h5>
       <PostList posts={state.posts} />
     </div>
