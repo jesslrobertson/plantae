@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // set EJS at templating engine
 app.set("view engine", "ejs");
 
-mongoose.connect(`mongodb+srv://${process.env.USERNAME}:${process.env.PASSWORD}@cluster0.dc6tcnp.mongodb.net/plantae?retryWrites=true&w=majority`, (x) => console.log(x));
+mongoose.connect(`mongodb+srv://${process.env.USERNAME}:${process.env.PASSWORD}@cluster0.dc6tcnp.mongodb.net/plantae?retryWrites=true&w=majority`, () => console.log('Connected to DB'));
 //upload file
 app.use("/upload", require("./routes/fileUploadRouter"));
 
