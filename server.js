@@ -25,7 +25,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 // set EJS at templating engine
 app.set("view engine", "ejs");
 
-mongoose.connect(process.env.URI, () => console.log("Connected to the DB"));
+mongoose.connect(process.env.URI, (x) => console.log(x));
 //upload file
 app.use("/upload", require("./routes/fileUploadRouter"));
 
