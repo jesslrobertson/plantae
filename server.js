@@ -7,6 +7,7 @@ const { expressjwt } = require("express-jwt");
 const cors = require("cors");
 const fileUpload = require("express-fileupload");
 const bodyParser = require("body-parser");
+const path = require('path')
 
 app.use(express.json());
 app.use(morgan("dev"));
@@ -14,6 +15,9 @@ app.disable("etag");
 app.use(cors({
   origin: true
 }))
+app.get('/', function (req, res) {
+  res.sendFile(path.join(__dirname, 'public/index.html'));
+});
 app.use(
   fileUpload({
     createParentPath: true,
@@ -21,6 +25,8 @@ app.use(
 );
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+
 
 // set EJS at templating engine
 app.set("view engine", "ejs");
