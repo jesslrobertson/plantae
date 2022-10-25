@@ -75,27 +75,6 @@ export default function UserProvider(props){
     }))
   }
 
-  // function getUserTodos(){
-  //   userAxios.get("/api/todo/user")
-  //     .then(res => {
-  //       setUserState(prevState => ({
-  //         ...prevState,
-  //         todos: res.data
-  //       }))
-  //     })
-  //     .catch(err => console.log(err.response.data.errMsg))
-  // }
-
-  // function addTodo(newTodo){
-  //   userAxios.post("/api/todo", newTodo)
-  //     .then(res => {
-  //       setUserState(prevState => ({
-  //         ...prevState,
-  //         todos: [...prevState.todos, res.data]
-  //       }))
-  //     })
-  //     .catch(err => console.log(err.response.data.errMsg))
-  // }
 
   return (
     <UserContext.Provider
